@@ -16,6 +16,7 @@ public class KenKenDriver extends JFrame{
 
     KenKenPuzzle puzzle;
     KenKenDisplay display;
+    BoxObject listOfConstraints[];
 
     public KenKenDriver()
     {
@@ -46,6 +47,7 @@ public class KenKenDriver extends JFrame{
                 try {
                     changeSize();
                     puzzle.SetDomain(size);
+                    puzzle.loadBoxObject(listOfConstraints);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -78,6 +80,7 @@ public class KenKenDriver extends JFrame{
 
             readFile=new ReadFile(x);
 
+        listOfConstraints=readFile.getList();
         size = readFile.getSize();
         this.remove(display);
         puzzle = new KenKenPuzzle(size,size);

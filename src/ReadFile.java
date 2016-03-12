@@ -12,13 +12,17 @@ public class ReadFile {
     }
 
     private int size;
-    private int numberOfProblem;
 
+    public BoxObject[] getList() {
+        return list;
+    }
+
+    private BoxObject list[];
 
     public ReadFile(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         size=scanner.nextInt();
-        numberOfProblem=0;
+        int numberOfProblem=0;
         while(scanner.hasNextLine())
         {
             numberOfProblem++;
@@ -26,7 +30,7 @@ public class ReadFile {
         }
         scanner.close();
 
-        BoxObject list[]=new BoxObject[numberOfProblem];
+        list=new BoxObject[numberOfProblem];
 
         scanner=new Scanner(file);
         scanner.nextLine();
