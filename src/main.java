@@ -9,7 +9,7 @@ public class main {
     public static void main(String[] args) throws FileNotFoundException {
 
         JFileChooser fc = new JFileChooser();
-        fc.setCurrentDirectory(new File("/User/Wei Zhou"));
+        fc.setCurrentDirectory(new File("../KenKenCSIT441"));
         fc.showOpenDialog(new JFrame());
 
         File x=  fc.getSelectedFile();
