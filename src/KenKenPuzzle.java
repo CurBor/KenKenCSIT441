@@ -3,7 +3,7 @@ import java.util.Random;
 /**
  * Created by zachw on 2/25/16.
  */
-public class Puzzle {
+public class KenKenPuzzle {
     private int rows = 8;
     private int cols= 8;
     private int[][] assignments = {
@@ -18,7 +18,7 @@ public class Puzzle {
 
     Random randGen;
 
-    public Puzzle(int rs, int cs)
+    public KenKenPuzzle(int rs, int cs)
     {
         randGen = new Random();
         rows = rs;

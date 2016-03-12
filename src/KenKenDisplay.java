@@ -2,9 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class PuzzleDisplay extends JPanel{
+public class KenKenDisplay extends JPanel{
 
-    Puzzle puzzle;
+    KenKenPuzzle puzzle;
     int cellSize = 75;
     int divWid = 6;
     int start_X = 50;
@@ -17,7 +17,7 @@ public class PuzzleDisplay extends JPanel{
     Font bigFont = new Font("Arial", 1, 40);
 
 
-    public PuzzleDisplay(Puzzle p)
+    public KenKenDisplay(KenKenPuzzle p)
     {
         puzzle = p;
 

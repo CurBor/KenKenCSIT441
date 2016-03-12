@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 /**
  * Created by zachw on 2/25/16.
  */
-public class PuzzleWindow extends JFrame{
+public class KenKenDriver extends JFrame{
 
     int win_wid = 600;
     int win_hei = 600;
@@ -14,17 +14,17 @@ public class PuzzleWindow extends JFrame{
     int rows = 4;
     int cols = 4;
 
-    Puzzle puzzle;
-    PuzzleDisplay display;
+    KenKenPuzzle puzzle;
+    KenKenDisplay display;
 
-    public PuzzleWindow()
+    public KenKenDriver()
     {
         this.setTitle("Puzzle Board");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(win_wid, win_hei);
 
-        puzzle = new Puzzle(rows, cols);
-        display = new PuzzleDisplay(puzzle);
+        puzzle = new KenKenPuzzle(rows, cols);
+        display = new KenKenDisplay(puzzle);
 
         initMenu();
 
@@ -78,8 +78,8 @@ public class PuzzleWindow extends JFrame{
 
         size = readFile.getSize();
         this.remove(display);
-        puzzle = new Puzzle(size,size);
-        display = new PuzzleDisplay(puzzle);
+        puzzle = new KenKenPuzzle(size,size);
+        display = new KenKenDisplay(puzzle);
         this.add(display);
         repaint();
 
@@ -92,8 +92,8 @@ public class PuzzleWindow extends JFrame{
                 "Enter number of rows (ex: 4)","col entry",1);
         cols = Integer.parseInt(input);
         this.remove(display);
-        puzzle = new Puzzle(rows,cols);
-        display = new PuzzleDisplay(puzzle);
+        puzzle = new KenKenPuzzle(rows,cols);
+        display = new KenKenDisplay(puzzle);
         this.add(display);
         repaint();
 
@@ -102,6 +102,6 @@ public class PuzzleWindow extends JFrame{
 
 
     public static void main(String[] args){
-        new PuzzleWindow();
+        new KenKenDriver();
     }
 }
