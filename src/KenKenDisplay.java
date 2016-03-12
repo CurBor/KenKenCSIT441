@@ -5,6 +5,7 @@ import java.awt.event.*;
 public class KenKenDisplay extends JPanel{
 
     KenKenPuzzle puzzle;
+    private BoxObject objectList[];
     int cellSize = 125;
     int divWid = 6;
     int thinkWid=3;
@@ -16,6 +17,10 @@ public class KenKenDisplay extends JPanel{
     Color[] colors = {Color.white, Color.white};
 
     Font bigFont = new Font("Arial", 1, 40);
+
+    public void loadBoxObjects(BoxObject[] boxObjects){
+        objectList = boxObjects;
+    }
 
 
     public KenKenDisplay(KenKenPuzzle p)

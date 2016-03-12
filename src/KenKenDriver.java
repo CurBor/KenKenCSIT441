@@ -47,7 +47,8 @@ public class KenKenDriver extends JFrame{
                 try {
                     changeSize();
                     puzzle.SetDomain(size);
-                    puzzle.loadBoxObject(listOfConstraints);
+                    puzzle.loadBoxObjects(listOfConstraints);
+                    display.loadBoxObjects(listOfConstraints);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }

@@ -8,7 +8,7 @@ import java.util.Random;
 public class KenKenPuzzle {
     private int rows = 8;
     private int cols= 8;
-    private BoxObject list[];
+    private BoxObject objectList[];
     private int[][] assignments = {
             {-1,-1,-1,-1,-1,4,-1,-1},
             {-1,-1,-1,-1,-1,-1,-1,-1},
@@ -56,8 +56,8 @@ public class KenKenPuzzle {
 
     }
 
-    public void loadBoxObject(BoxObject[] list){
-        this.list=list;
+    public void loadBoxObjects(BoxObject[] list){
+        this.objectList=list;
     }
 
     public KenKenPuzzle(int rs, int cs)
