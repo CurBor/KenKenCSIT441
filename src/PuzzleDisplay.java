@@ -5,14 +5,14 @@ import java.awt.event.*;
 public class PuzzleDisplay extends JPanel{
 
     Puzzle puzzle;
-    int cellSize = 50;
+    int cellSize = 75;
     int divWid = 6;
     int start_X = 50;
     int start_y = 50;
     int letterOffSet_Y = 40;
     int letterOffSet_X = 10;
 
-    Color[] colors = {Color.red, Color.green};
+    Color[] colors = {Color.white, Color.white};
 
     Font bigFont = new Font("Arial", 1, 40);
 
@@ -61,7 +61,7 @@ public class PuzzleDisplay extends JPanel{
 
                 if( puzzle.getAssignment(row, col) > -1)
                 {
-                    g.setColor(Color.YELLOW);
+                    g.setColor(Color.black);
                     g.setFont(bigFont);
                     g.drawString(""+puzzle.getAssignment(row, col), start_X+
                                     divWid+(cellSize+divWid)*col+letterOffSet_X,

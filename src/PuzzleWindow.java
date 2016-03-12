@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Created by zachw on 2/25/16.
@@ -7,8 +9,9 @@ public class PuzzleWindow extends JFrame{
 
     int win_wid = 600;
     int win_hei = 600;
+    int size;
 
-    int rows = 6;
+    int rows = 4;
     int cols = 4;
 
     Puzzle puzzle;
@@ -33,13 +36,17 @@ public class PuzzleWindow extends JFrame{
     public void initMenu()
     {
         JMenuBar mBar = new JMenuBar();
-        JMenu menu = new JMenu("Size");
-        JMenuItem rowItem = new JMenuItem("change rows ...");
+        JMenu menu = new JMenu("Menu");
+        JMenuItem sizeItem = new JMenuItem("load");
         JMenuItem colItem = new JMenuItem("change cols ...");
 
-        rowItem.addActionListener(new java.awt.event.ActionListener() {
+        sizeItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changeRows();
+                try {
+                    changeSize();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -51,19 +58,27 @@ public class PuzzleWindow extends JFrame{
 
 
         mBar.add(menu);
-        menu.add(rowItem);
+        menu.add(sizeItem);
         menu.add(colItem);
 
         this.setJMenuBar(mBar);
     }
 
-    public void changeRows()
-    {
-        String input = JOptionPane.showInputDialog(null,
-                "Enter number of rows (ex: 4)","row entry",1);
-        rows = Integer.parseInt(input);
+    public void changeSize() throws FileNotFoundException {
+//        String input = JOptionPane.showInputDialog(null,
+//                "Enter number of rows (ex: 4)","row entry",1);
+        ReadFile readFile;
+        JFileChooser fc = new JFileChooser();
+        fc.setCurrentDirectory(new File("../KenKenCSIT441"));
+        fc.showOpenDialog(new JFrame());
+
+        File x=  fc.getSelectedFile();
+
+            readFile=new ReadFile(x);
+
+        size = readFile.getSize();
         this.remove(display);
-        puzzle = new Puzzle(rows,cols);
+        puzzle = new Puzzle(size,size);
         display = new PuzzleDisplay(puzzle);
         this.add(display);
         repaint();

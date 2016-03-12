@@ -4,14 +4,14 @@ import java.util.List;
 /**
  * Created by Wei Zhou on 2016/3/11.
  */
-public class Questions {
+public class BoxObject {
 
 
     int goal;
     char opertor;
     List<Integer> cubeList;
 
-    public  Questions(int goal, char opertor)
+    public BoxObject(int goal, char opertor)
     {
         this.goal=goal;
         this.opertor=opertor;

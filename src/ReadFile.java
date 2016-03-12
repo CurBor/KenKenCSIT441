@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -8,8 +7,13 @@ import java.util.Scanner;
  */
 public class ReadFile {
 
+    public int getSize() {
+        return size;
+    }
+
     private int size;
     private int numberOfProblem;
+
 
     public ReadFile(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
@@ -22,7 +26,7 @@ public class ReadFile {
         }
         scanner.close();
 
-        Questions list[]=new Questions[numberOfProblem];
+        BoxObject list[]=new BoxObject[numberOfProblem];
 
         scanner=new Scanner(file);
         scanner.nextLine();
@@ -33,7 +37,7 @@ public class ReadFile {
             char opertar = splitLine[1].charAt(splitLine[1].length()-1);
             String x=splitLine[1].substring(0, splitLine[1].length() -1);
             int goal = Integer.parseInt(x);
-            Questions questions = new Questions(goal, opertar);
+            BoxObject questions = new BoxObject(goal, opertar);
 
             Scanner readLine = new Scanner(splitLine[0]);
             while (readLine.hasNextInt()) {
