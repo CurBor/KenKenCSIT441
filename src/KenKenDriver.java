@@ -26,6 +26,7 @@ public class KenKenDriver extends JFrame{
         puzzle = new KenKenPuzzle(rows, cols);
         display = new KenKenDisplay(puzzle);
 
+
         initMenu();
 
         this.add(display);
@@ -44,6 +45,7 @@ public class KenKenDriver extends JFrame{
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
                     changeSize();
+                    puzzle.SetDomain(size);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -17,6 +19,43 @@ public class KenKenPuzzle {
             {-1,-1,-1,-1,-1,-1,-1,-1}};
 
     Random randGen;
+
+    public void SetDomain(int size){
+
+        List<Integer> f[][]=new List[size][size];
+
+
+        for(int x=0;x<3;x++)
+        {
+            for(int y=0;y<3;y++)
+            {
+                f[x][y]=new ArrayList();
+            }
+        }
+
+        for(int x=0;x<size;x++)
+        {
+            for(int y=0;y<size;y++)
+            {
+                for(int z=1;z<=size;z++)
+                    f[x][y].add(z);
+            }
+        }
+
+//        System.out.println(f[1][2]);
+//
+//        for(int x=0;x<3;x++)
+//        {
+//            for(int y=0;y<3;y++)
+//            {
+//
+//                System.out.println(f[x][y].toString());
+//            }
+//        }
+
+    }
+
+    public void SetConstraint()
 
     public KenKenPuzzle(int rs, int cs)
     {
