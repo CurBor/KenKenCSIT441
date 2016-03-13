@@ -53,11 +53,11 @@ public class ReadFile {
             list[count] = questions;
             count++;
         }
-        int x=2;
-        System.out.println(list[x].getGoal());
-        System.out.println(list[x].getOpertor());
-        
-        System.out.println(list[x].getCubeStringList());
+//        int x=2;
+//        System.out.println(list[x].getGoal());
+//        System.out.println(list[x].getOpertor());
+//
+//        System.out.println(list[x].getCubeStringList());
     }
 
 

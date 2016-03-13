@@ -16,7 +16,7 @@ public class KenKenDriver extends JFrame{
 
     KenKenPuzzle puzzle;
     KenKenDisplay display;
-    BoxObject listOfConstraints[];
+    BoxObject initialFileList[];
 
     public KenKenDriver()
     {
@@ -47,8 +47,8 @@ public class KenKenDriver extends JFrame{
                 try {
                     changeSize();
                     puzzle.SetDomain(size);
-                    puzzle.loadBoxObjects(listOfConstraints);
-                    display.loadBoxObjects(listOfConstraints);
+                    puzzle.loadBoxObjects(initialFileList);
+                    display.loadBoxObjects(initialFileList);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -81,11 +81,11 @@ public class KenKenDriver extends JFrame{
         readFile=new ReadFile(x);
 
         this.remove(display);
-        listOfConstraints=readFile.getList();
+        initialFileList =readFile.getList();
         size = readFile.getSize();
         puzzle = new KenKenPuzzle(size,size);
         display = new KenKenDisplay(puzzle);
-        display.loadBoxObjects(listOfConstraints);
+        display.loadBoxObjects(initialFileList);
         this.add(display);
         repaint();
 
