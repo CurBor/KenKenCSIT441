@@ -9,6 +9,8 @@ public class KenKenPuzzle {
     private int rows = 8;
     private int cols= 8;
     private BoxObject objectList[];
+    private List<Integer> domain[][];
+    private List<String> constraint;
     private int[][] assignments = {
             {-1,-1,-1,-1,-1,4,-1,-1},
             {-1,-1,-1,-1,-1,-1,-1,-1},
@@ -27,14 +29,14 @@ public class KenKenPuzzle {
     }
     public void SetDomain(int size){
 
-        List<Integer> f[][]=new List[size][size];
+        domain=new List[size][size];
 
 
         for(int x=0;x<size;x++)
         {
             for(int y=0;y<size;y++)
             {
-                f[x][y]=new ArrayList();
+                domain[x][y]=new ArrayList();
             }
         }
 
@@ -43,25 +45,19 @@ public class KenKenPuzzle {
             for(int y=0;y<size;y++)
             {
                 for(int z=1;z<=size;z++)
-                    f[x][y].add(z);
+                    domain[x][y].add(z);
             }
         }
-
-//        System.out.println(f[1][2]);
-//
-//        for(int x=0;x<3;x++)
-//        {
-//            for(int y=0;y<3;y++)
-//            {
-//
-//                System.out.println(f[x][y].toString());
-//            }
-//        }
 
     }
 
     public void loadBoxObjects(BoxObject[] list){
         this.objectList=list;
+        SetConstraints();
+    }
+
+    public void SetConstraints(){
+        System.out.println(objectList[1]);
     }
 
     public KenKenPuzzle(int rs, int cs)
@@ -96,6 +92,16 @@ public class KenKenPuzzle {
     {
         int assign = randGen.nextInt(9)+1;
         assignments[r][c] = assign;
+//                System.out.println(domain[1][2]);
+//
+//        for(int x=0;x<3;x++)
+//        {
+//            for(int y=0;y<3;y++)
+//            {
+//
+//                System.out.println(domain[x][y].toString());
+//            }
+//        }
     }
 
 
