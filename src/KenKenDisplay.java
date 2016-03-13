@@ -13,7 +13,7 @@ public class KenKenDisplay extends JPanel {
     int start_y = 50;
     int letterOffSet_Y = 40;
     int letterOffSet_X = 10;
-    boolean lunchPuzzle=false;
+    boolean lunchPuzzle = false;
 
     Color[] colors = {Color.white, Color.white};
 
@@ -21,64 +21,84 @@ public class KenKenDisplay extends JPanel {
 
     public void loadBoxObjects(BoxObject[] boxObjects) {
         objectList = boxObjects;
-        lunchPuzzle=true;
+        lunchPuzzle = true;
         repaint();
     }
 
 
-    public void printObjectOutline(Graphics g)
-    {
+    public void printObjectOutline(Graphics g) {
         g.setColor(Color.black);
-//        for (int countObject = 0; countObject < objectList.length-1; countObject++) {
-//            for (int x = 0; x < objectList[countObject].getCubeList().size()/2; x++) {
-//                int location[] = objectList[countObject].indexOfCube(x);
-//                if (location[0] - 1 >=0) {
-//                    int testInlist[] = {location[0] - 1, location[1]};
-//                    boolean needPrintBorader = true;
-//
-//                    for (int y = 0; y < objectList[countObject].getCubeList().size()/2; y++) {
-//                        if (testInlist.equals(objectList[countObject].indexOfCube(x))) {
-//                            needPrintBorader = false;
-//                        }
-//                    }
-//
-//                    if(needPrintBorader==true)
-//                    {
-                        int x[]={1,2};int y[]={0,2};
-                        int[] board=getBetweenBoarder(x,y);
-                        g.fillRect(board[0],board[1],board[2],board[3]);
+        for (int countObject = 0; countObject < objectList.length - 1; countObject++) {
+            for (int x = 0; x < objectList[countObject].getCubeList().size() / 2; x++) {
+                int location[] = objectList[countObject].indexOfCube(x);
+                if (location[0] - 1 >= 0) {
+                    int testInlist[] = {location[0] - 1, location[1]};
+                    boolean needPrintBorader = true;
 
-//                    }
-//
-//                }
-//
-//            }
-//        }
-        lunchPuzzle=true;
-        repaint();
-    }
+                    for (int y = 0; y < objectList[countObject].getCubeList().size() / 2; y++) {
+                        int cubelist[]= objectList[countObject].indexOfCube(y);
+                        if (testInlist[1]==cubelist[1]&& testInlist[0]==cubelist[0]) {
+                            needPrintBorader = false;
+                        }
+                    }
+                    if (needPrintBorader == true) {
+                        int[] board = getBetweenBoarder(testInlist, location);
+                        g.fillRect(board[0], board[1], board[2], board[3]);
+                    }
+                }
+                if (location[1] - 1 >= 0) {
+                    int testInlist[] = {location[0], location[1] - 1};
+                    boolean needPrintBorader = true;
 
-    public int[] getBetweenBoarder(int loc1[], int loc2[])
-    {
-        int[] returnValue=new int[4];
-        if(loc1[1]==loc2[1])
-        {
-            if(loc1[0]>loc2[0])
-            {
-                returnValue[0]=start_y+(loc2[1])*(divWid + cellSize)+divWid;
-                returnValue[1]=start_X+(loc2[0])*(divWid + cellSize)+divWid;
-                returnValue[2]=cellSize+divWid;
-                returnValue[3]=divWid;
-            }
-            if(loc1[0]<loc2[0])
-            {
-                returnValue[0]=start_y+((loc1[1])*(divWid + cellSize))+divWid;
-                returnValue[1]=start_X+((loc1[0])*(divWid + cellSize))+divWid;
-                returnValue[2]=cellSize+divWid;
-                returnValue[3]=divWid;
+                    for (int y = 0; y < objectList[countObject].getCubeList().size() / 2; y++) {
+                        if (testInlist.equals(objectList[countObject].indexOfCube(x))) {
+                            needPrintBorader = false;
+                        }
+                    }
+
+                    if (needPrintBorader == true) {
+                        int[] board = getBetweenBoarder(testInlist, location);
+                        g.fillRect(board[0], board[1], board[2], board[3]);
+                    }
+                }
+
             }
         }
-        int f=0;
+        lunchPuzzle = true;
+        repaint();
+    }
+
+    public int[] getBetweenBoarder(int loc1[], int loc2[]) {
+        int[] returnValue = new int[4];
+        if (loc1[1] == loc2[1]) {
+            if (loc1[0] > loc2[0]) {
+                returnValue[0] = start_y + (loc1[1]) * (divWid + cellSize) + divWid;
+                returnValue[1] = start_X + (loc1[0]) * (divWid + cellSize) + divWid;
+                returnValue[2] = cellSize + divWid;
+                returnValue[3] = divWid;
+            }
+            if (loc1[0] < loc2[0]) {
+                returnValue[0] = start_y + ((loc2[1]) * (divWid + cellSize)) + divWid;
+                returnValue[1] = start_X + ((loc2[0]) * (divWid + cellSize)) + divWid;
+                returnValue[2] = cellSize + divWid;
+                returnValue[3] = divWid;
+            }
+        }
+        if (loc1[0] == loc2[0]) {
+            if (loc1[1] > loc2[1]) {
+                returnValue[0] = start_y + (loc2[1] + 1) * (divWid + cellSize) + divWid;
+                returnValue[1] = start_X + (loc2[0]) * (divWid + cellSize) + divWid;
+                returnValue[2] = divWid;
+                returnValue[3] = cellSize + divWid;
+            }
+            if (loc1[1] < loc2[1]) {
+                returnValue[0] = start_y + ((loc1[1] + 1) * (divWid + cellSize)) + divWid;
+                returnValue[1] = start_X + ((loc1[0]) * (divWid + cellSize)) + divWid;
+                returnValue[2] = divWid;
+                returnValue[3] = cellSize + divWid;
+            }
+        }
+        int f = 0;
 
 
         return returnValue;
@@ -123,8 +143,7 @@ public class KenKenDisplay extends JPanel {
             g.fillRect(start_y + (divWid + cellSize) * size, start_y + divWid, thinkWid, (cellSize + divWid) * puzzle.getCols() - divWid);
         }
 
-        if(lunchPuzzle)
-        {
+        if (lunchPuzzle) {
             printObjectOutline(g);
         }
     }
