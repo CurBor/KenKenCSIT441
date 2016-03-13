@@ -10,7 +10,6 @@ public class BoxObject {
     int goal;
     char opertor;
     List<Integer> cubeList;
-    List<String> constraintList;
 
     public BoxObject(int goal, char opertor)
     {
@@ -61,11 +60,6 @@ public class BoxObject {
     	
 		return value;
     	
-    }
-    public List getConstraintList(){
-        constraintList.add(goal + opertor + cubeList.toString());
-        System.out.println(constraintList);
-        return constraintList;
     }
     
     public char getOpertor() {

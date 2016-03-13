@@ -39,32 +39,36 @@ public class KenKenDriver extends JFrame{
     {
         JMenuBar mBar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
-        JMenuItem sizeItem = new JMenuItem("load");
-        JMenuItem colItem = new JMenuItem("change cols ...");
+        JMenuItem loadGame = new JMenuItem("load");
+        JMenuItem arcCon = new JMenuItem("run arc consistency");
 
-        sizeItem.addActionListener(new java.awt.event.ActionListener() {
+        loadGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
+
                     changeSize();
+                    puzzle.setObjectList(initialFileList);
                     puzzle.SetDomain(size);
                     puzzle.loadBoxObjects(initialFileList);
                     display.loadBoxObjects(initialFileList);
+
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
             }
         });
 
-        colItem.addActionListener(new java.awt.event.ActionListener() {
+        arcCon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changeCols();
+                puzzle.nodeConsistency();
+                //changeCols();
             }
         });
 
 
         mBar.add(menu);
-        menu.add(sizeItem);
-        menu.add(colItem);
+        menu.add(loadGame);
+        menu.add(arcCon);
 
         this.setJMenuBar(mBar);
     }

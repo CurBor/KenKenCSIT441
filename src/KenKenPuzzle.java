@@ -6,11 +6,17 @@ import java.util.Random;
  * Created by zachw on 2/25/16.
  */
 public class KenKenPuzzle {
+    private int size;
     private int rows = 8;
     private int cols= 8;
+
+    public void setObjectList(BoxObject[] objectList) {
+        this.objectList = objectList;
+    }
+
     private BoxObject objectList[];
     private List<Integer> domain[][];
-    private List<String> constraint;
+    private List<Integer> constraint[][][];
     private int[][] assignments = {
             {-1,-1,-1,-1,-1,4,-1,-1},
             {-1,-1,-1,-1,-1,-1,-1,-1},
@@ -28,7 +34,7 @@ public class KenKenPuzzle {
         return objectList;
     }
     public void SetDomain(int size){
-
+        this.size=size;
         domain=new List[size][size];
 
 
@@ -48,17 +54,78 @@ public class KenKenPuzzle {
                     domain[x][y].add(z);
             }
         }
+        SetConstraints();
 
     }
 
     public void loadBoxObjects(BoxObject[] list){
         this.objectList=list;
-        SetConstraints();
     }
 
     public void SetConstraints(){
-        System.out.println(objectList[1]);
+        constraint = new List[size][size][2];//0 for cubes that not equal, 1 for relationship with List of Box Object
+        for(int x=0;x<size;x++)
+        {
+            for(int y=0;y<size;y++)
+            {
+                constraint[x][y][0]=setNotEqual(x,y);
+                System.out.println(constraint[x][y][0].toString());
+                constraint[x][y][1]=setRelationshipConstaint(x,y);
+                System.out.println(constraint[x][y][1].toString());
+            }
+        }
+
+
     }
+
+
+    public List<Integer> setRelationshipConstaint(int row,int col)
+    {
+        List<Integer> returnList=new ArrayList();
+
+
+        for(int x=0;x< objectList.length-1;x++)
+        {
+            for(int y=0;y<objectList[x].getCubeList().size()/2;y++)
+            {
+                int[]list=objectList[x].indexOfCube(y);
+                if(row==list[0]&& col==list[1])
+                {
+                    returnList.add(x);
+                    return returnList;
+                }
+            }
+        }
+
+        return null;
+    }
+    public List<Integer> setNotEqual (int row,int col)
+    {
+        List<Integer> returnList=new ArrayList();
+        for(int x=0;x<size;x++)
+        {
+            if(x!=row)
+            {
+                returnList.add(x);
+                returnList.add(col);
+            }
+
+        }
+        for(int x=0;x<size;x++)
+        {
+            if(x!=col) {
+                returnList.add(row);
+                returnList.add(x);
+            }
+        }
+
+        return returnList;
+    }
+
+    public void nodeConsistency(){
+        System.out.println("test");
+    }
+
 
     public KenKenPuzzle(int rs, int cs)
     {
