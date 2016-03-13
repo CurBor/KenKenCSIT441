@@ -151,6 +151,8 @@ public class KenKenPuzzle {
     {
         rows = rs;
         cols = cs;
+        size =rows;
+        initAssignment();
     }
 
     public void initAssignment()

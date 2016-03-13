@@ -13,12 +13,16 @@ public class KenKenDisplay extends JPanel {
     int start_y = 50;
     int letterOffSet_Y = 30;
     int letterOffSet_X = 10;
+    int letterOffSetAnswer_Y=75;
+    int letterOffSetAnswer_X=50;
+
     boolean lunchPuzzle = false;
 
 
     Color[] colors = {Color.white, Color.white};
 
     Font bigFont = new Font("Arial", 1, 25);
+    Font answerFont = new Font("Arial", 1, 40);
 
     public void loadBoxObjects(BoxObject[] boxObjects) {
         objectList = boxObjects;
@@ -33,8 +37,6 @@ public class KenKenDisplay extends JPanel {
             //print operator and goal for each block
 
             int firstcube[]= objectList[countObject].indexOfCube(0);
-//            returnValue[0] = start_y + ((loc2[1]) * (divWid + cellSize));
-//            returnValue[1] = start_X + ((loc2[0]) * (divWid + cellSize));
             char getOpertor=objectList[countObject].getOpertor();
             if(getOpertor=='/')
             {
@@ -84,6 +86,24 @@ public class KenKenDisplay extends JPanel {
 
             }
         }
+        int[][] assignments=puzzle.getAssignments();
+        assignments[2][1]=3;
+        assignments[0][1]=1;
+        for(int x=0;x<puzzle.getCols();x++)
+        {
+            for(int y=0;y<puzzle.getCols();y++)
+            {
+
+
+               if(assignments[x][y]>0)
+               {
+                   int z[]=printCubeSolver(x,y);
+                   g.drawString(""+assignments[x][y],z[0],z[1]);
+               }
+            }
+        }
+
+
         lunchPuzzle = true;
         repaint();
     }
@@ -118,11 +138,21 @@ public class KenKenDisplay extends JPanel {
                 returnValue[3] = cellSize + divWid;
             }
         }
-        int f = 0;
+
+        return returnValue;
+    }
+    public int[] printCubeSolver(int row, int col) {
+        int[] returnValue = new int[2];
+
+        returnValue[0]=start_X+col*(divWid + cellSize)+letterOffSetAnswer_X;
+        returnValue[1]=start_y+row*(divWid + cellSize)+letterOffSetAnswer_Y;
 
 
         return returnValue;
     }
+
+
+
 
     public KenKenDisplay(KenKenPuzzle p) {
         puzzle = p;
@@ -134,6 +164,8 @@ public class KenKenDisplay extends JPanel {
         });
 
     }
+
+
 
     public void processClick(MouseEvent me) {
         int x = me.getX();
