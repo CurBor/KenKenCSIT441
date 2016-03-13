@@ -78,14 +78,14 @@ public class KenKenDriver extends JFrame{
         fc.showOpenDialog(new JFrame());
 
         File x=  fc.getSelectedFile();
+        readFile=new ReadFile(x);
 
-            readFile=new ReadFile(x);
-
+        this.remove(display);
         listOfConstraints=readFile.getList();
         size = readFile.getSize();
-        this.remove(display);
         puzzle = new KenKenPuzzle(size,size);
         display = new KenKenDisplay(puzzle);
+        display.loadBoxObjects(listOfConstraints);
         this.add(display);
         repaint();
 

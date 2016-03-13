@@ -21,14 +21,18 @@ public class KenKenPuzzle {
 
     Random randGen;
 
+
+    public BoxObject[] getObjectList() {
+        return objectList;
+    }
     public void SetDomain(int size){
 
         List<Integer> f[][]=new List[size][size];
 
 
-        for(int x=0;x<3;x++)
+        for(int x=0;x<size;x++)
         {
-            for(int y=0;y<3;y++)
+            for(int y=0;y<size;y++)
             {
                 f[x][y]=new ArrayList();
             }

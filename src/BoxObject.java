@@ -30,8 +30,8 @@ public class BoxObject {
 
     public int[] indexOfCube(int input)
     {
-    	int row=cubeList.get(input*2);
-    	int col=cubeList.get(input*2+1);
+    	int row=cubeList.get(input/2);
+    	int col=cubeList.get(input/2+1);
     	
     	int[] xAndY={row,col};
     	
