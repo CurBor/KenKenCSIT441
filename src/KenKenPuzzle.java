@@ -69,9 +69,9 @@ public class KenKenPuzzle {
             for(int y=0;y<size;y++)
             {
                 constraint[x][y][0]=setNotEqual(x,y);
-                System.out.println(constraint[x][y][0].toString());
+                //System.out.println(constraint[x][y][0].toString());
                 constraint[x][y][1]=setRelationshipConstaint(x,y);
-                System.out.println(constraint[x][y][1].toString());
+                //System.out.println(constraint[x][y][1].toString());
             }
         }
 
@@ -123,7 +123,27 @@ public class KenKenPuzzle {
     }
 
     public void nodeConsistency(){
-        System.out.println("test");
+        for(int x=0;x<size;x++)
+        {
+            for(int y=0;y<size;y++)
+            {
+                int pointer=constraint[x][y][1].get(0);
+                if(objectList[pointer].cubeList.size()==2){
+                    int goal = objectList[pointer].getGoal();
+                    for(int z=0; z<domain[x][y].size();z++){
+                        if(domain[x][y].get(z)!=goal){
+
+                            domain[x][y].remove(z);
+                            System.out.println("box : "+ x + y +domain[x][y].toString() + " and number "+ z);
+                            z--;
+                        }
+                    }
+                    //domain[x][y]= goal;
+                }
+            }
+
+
+        }
     }
 
 
