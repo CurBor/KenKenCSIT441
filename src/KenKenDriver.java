@@ -95,22 +95,6 @@ public class KenKenDriver extends JFrame{
 
     }
 
-    public void changeCols()
-    {
-        System.err.print("menu clicked\n");
-        String input = JOptionPane.showInputDialog(null,
-                "Enter number of rows (ex: 4)","col entry",1);
-        cols = Integer.parseInt(input);
-        this.remove(display);
-        puzzle = new KenKenPuzzle(rows,cols);
-        display = new KenKenDisplay(puzzle);
-        this.add(display);
-        repaint();
-
-    }
-
-
-
     public static void main(String[] args){
         new KenKenDriver();
     }

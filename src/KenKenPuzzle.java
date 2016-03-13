@@ -149,28 +149,18 @@ public class KenKenPuzzle {
 
     public KenKenPuzzle(int rs, int cs)
     {
-        randGen = new Random();
         rows = rs;
         cols = cs;
-        initAssignment();
     }
 
     public void initAssignment()
     {
-        assignments = new int[rows][cols];
-        for(int row = 0; row < getRows(); row++)
+        assignments = new int[size][size];
+        for(int row = 0; row < size; row++)
         {
-            for(int col = 0; col < getCols(); col++)
+            for(int col = 0; col < size; col++)
             {
-                int prob = randGen.nextInt(100);
-                if(prob > 75)
-                {
-                    assignments[row][col] = randGen.nextInt(8)+1;
-                }
-                else
-                {
-                    assignments[row][col] = -1;
-                }
+                assignments[row][col] = 0;
             }
         }
     }
