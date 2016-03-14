@@ -30,6 +30,20 @@ public class KenKenDisplay extends JPanel {
         repaint();
     }
 
+//    public PuzzleDisplay(Puzzle p)
+//    {
+//        puzzle = p;
+//
+//        this.addMouseListener(new MouseAdapter() {
+//            public void mouseClicked(MouseEvent me) {
+//                processClick(me);
+//            }
+//        });
+//
+//    }
+
+//a
+
 
     public void printObjectOutline(Graphics g) {
         g.setColor(Color.black);

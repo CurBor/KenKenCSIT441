@@ -146,6 +146,7 @@ public class KenKenPuzzle {
         }
     }
 
+
     public void checkSingleDomain(){
         for(int x=0;x<size;x++){
             for(int y=0;y<size;y++){
