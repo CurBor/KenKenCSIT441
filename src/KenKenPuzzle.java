@@ -138,7 +138,6 @@ public class KenKenPuzzle {
                             z--;
                         }
                     }
-                    //domain[x][y]= goal;
                 }
             }
 
@@ -146,6 +145,7 @@ public class KenKenPuzzle {
         }
     }
 
+    //public void arcC
 
     public void checkSingleDomain(){
         for(int x=0;x<size;x++){
@@ -179,8 +179,7 @@ public class KenKenPuzzle {
 
     public void generateMove(int r, int c)
     {
-        int assign = randGen.nextInt(9)+1;
-        assignments[r][c] = assign;
+
 //                System.out.println(domain[1][2]);
 //
 //        for(int x=0;x<3;x++)
