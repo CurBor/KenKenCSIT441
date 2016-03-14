@@ -7,8 +7,8 @@ import java.util.Random;
  */
 public class KenKenPuzzle {
     private int size;
-    private int rows = 8;
-    private int cols= 8;
+    private int rows = 4;
+    private int cols= 4;
 
     public void setObjectList(BoxObject[] objectList) {
         this.objectList = objectList;
@@ -145,7 +145,13 @@ public class KenKenPuzzle {
         }
     }
 
-    //public void arcC
+    public void archConsistency(){
+        for(int x=0;x<size;x++){
+            for(int y=0;y<size;y++){
+
+            }
+        }
+    }
 
     public void checkSingleDomain(){
         for(int x=0;x<size;x++){
