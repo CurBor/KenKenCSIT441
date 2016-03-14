@@ -69,7 +69,7 @@ public class KenKenPuzzle {
             for(int y=0;y<size;y++)
             {
                 constraint[x][y][0]=setNotEqual(x,y);
-                //System.out.println(constraint[x][y][0].toString());
+                System.out.println(constraint[x][y][0].toString());
                 constraint[x][y][1]=setRelationshipConstaint(x,y);
                 //System.out.println(constraint[x][y][1].toString());
             }
@@ -134,7 +134,7 @@ public class KenKenPuzzle {
                         if(domain[x][y].get(z)!=goal){
 
                             domain[x][y].remove(z);
-                            System.out.println("box : "+ x + y +domain[x][y].toString() + " and number "+ z);
+                            //System.out.println("box : "+ x + y +domain[x][y].toString() + " and number "+ z);
                             z--;
                         }
                     }
@@ -146,8 +146,28 @@ public class KenKenPuzzle {
     }
 
     public void archConsistency(){
+        notEqualsArchConsistency();
+
+    }
+
+    /*
+        this will go through all of the consistencies we have set up that are not equals statements.
+        If any domain is of size 1 than it will go through and remove that value from all box domains
+        that cannot equal the initial box.
+     */
+    public void notEqualsArchConsistency(){
         for(int x=0;x<size;x++){
             for(int y=0;y<size;y++){
+                for(int c=0;c<constraint[x][y][0].size();c+=2) {
+                    int compBoxX = constraint[x][y][0].get(c);
+                    int compBoxY = constraint[x][y][0].get(c+1);
+                    if(domain[x][y].size()==1){
+                        if(domain[compBoxX][compBoxY].contains(domain[x][y].get(0))) {
+                            domain[compBoxX][compBoxY].remove(new Integer(domain[x][y].get(0)));
+                            System.out.println("from box: " + compBoxX + compBoxY + " and compbox domain size" + domain[compBoxX][compBoxY].size());
+                        }
+                    }
+                }
 
             }
         }
