@@ -6,14 +6,14 @@ public class KenKenDisplay extends JPanel {
 
     KenKenPuzzle puzzle;
     private BoxObject objectList[];
-    int cellSize = 125;
-    int divWid = 8;
+    int cellSize = 100;
+    int divWid = 7;
     int thinkWid = 3;
     int start_X = 50;
     int start_y = 50;
-    int letterOffSet_Y = 30;
+    int letterOffSet_Y = 25;
     int letterOffSet_X = 10;
-    int letterOffSetAnswer_Y=75;
+    int letterOffSetAnswer_Y=85;
     int letterOffSetAnswer_X=50;
 
     boolean lunchPuzzle = false;
@@ -22,7 +22,7 @@ public class KenKenDisplay extends JPanel {
     Color[] colors = {Color.white, Color.white};
 
     Font bigFont = new Font("Arial", 1, 25);
-    Font answerFont = new Font("Arial", 1, 40);
+    Font answerFont = new Font("Arial", 1, 50);
 
     public void loadBoxObjects(BoxObject[] boxObjects) {
         objectList = boxObjects;
@@ -101,6 +101,7 @@ public class KenKenDisplay extends JPanel {
             }
         }
         int[][] assignments=puzzle.getAssignments();
+        g.setFont(answerFont);
         for(int x=0;x<puzzle.getCols();x++)
         {
             for(int y=0;y<puzzle.getCols();y++)
