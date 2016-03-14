@@ -18,9 +18,6 @@ public class KenKenDisplay extends JPanel {
 
     boolean lunchPuzzle = false;
 
-
-    Color[] colors = {Color.white, Color.white};
-
     Font bigFont = new Font("Arial", 1, 25);
     Font answerFont = new Font("Arial", 1, 50);
 
@@ -153,30 +150,8 @@ public class KenKenDisplay extends JPanel {
 
 
 
-    public KenKenDisplay(KenKenPuzzle p) {
-        puzzle = p;
-
-        this.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent me) {
-                processClick(me);
-            }
-        });
-
-    }
 
 
-
-    public void processClick(MouseEvent me) {
-        int x = me.getX();
-        int y = me.getY();
-
-        int selectedRow = (y - start_y - divWid) / (cellSize + divWid);
-        int selectedCol = (x - start_X - divWid) / (cellSize + divWid);
-
-
-        puzzle.generateMove(selectedRow, selectedCol);
-        repaint();
-    }
 
 
     public void paintComponent(Graphics g) {
@@ -196,6 +171,53 @@ public class KenKenDisplay extends JPanel {
 
         if (lunchPuzzle) {
             printObjectOutline(g);
+        }
+    }
+    public KenKenDisplay(KenKenPuzzle p) {
+        puzzle = p;
+
+        this.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+                processClick(me);
+            }
+        });
+
+    }
+
+    public void processClick(MouseEvent me) {
+        if(!lunchPuzzle)
+        {
+            return;
+        }
+        int x = me.getX();
+        int y = me.getY();
+
+        if((y - start_y - divWid)>0 && (x - start_X - divWid)>0) {
+
+            int selectedRow = (y - start_y - divWid) / (cellSize + divWid);
+            int selectedCol = (x - start_X - divWid) / (cellSize + divWid);
+
+            if (selectedRow < puzzle.getRows() && selectedCol < puzzle.getCols()) {
+                String input=JOptionPane.showInputDialog(null,"Please enter what do you want to fill in ("+(selectedRow+1)+" , "+(selectedCol+1)+")\n" +
+                        "In the range 1-"+puzzle.getCols()+".","Input Dialog",1);
+                int inputInteger=0;
+
+                try{
+                    inputInteger=Integer.parseInt(input);
+                }catch (java.lang.NumberFormatException e){
+                    if(input!=null)
+                        JOptionPane.showMessageDialog(null,"You enter a invalid input","Wrong Input!",2);
+                    return;
+                }
+                if(inputInteger>0&&inputInteger<=puzzle.getCols())
+                {
+
+                    puzzle.generateMove(selectedRow, selectedCol,inputInteger);
+                    repaint();
+                }else{
+                    JOptionPane.showMessageDialog(null,"You enter a out of range input","Wrong Input!",2);
+                }
+            }
         }
     }
 

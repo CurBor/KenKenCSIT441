@@ -183,19 +183,11 @@ public class KenKenPuzzle {
         }
     }
 
-    public void generateMove(int r, int c)
+    public void generateMove(int r, int c,int input)
     {
 
-//                System.out.println(domain[1][2]);
-//
-//        for(int x=0;x<3;x++)
-//        {
-//            for(int y=0;y<3;y++)
-//            {
-//
-//                System.out.println(domain[x][y].toString());
-//            }
-//        }
+                System.out.println(r+"  "+c);
+        assignments[r][c]=input;
     }
 
 
