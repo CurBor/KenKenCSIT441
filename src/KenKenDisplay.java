@@ -87,8 +87,6 @@ public class KenKenDisplay extends JPanel {
             }
         }
         int[][] assignments=puzzle.getAssignments();
-        assignments[2][1]=3;
-        assignments[0][1]=1;
         for(int x=0;x<puzzle.getCols();x++)
         {
             for(int y=0;y<puzzle.getCols();y++)

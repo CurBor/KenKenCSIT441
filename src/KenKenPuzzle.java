@@ -146,6 +146,15 @@ public class KenKenPuzzle {
         }
     }
 
+    public void checkSingleDomain(){
+        for(int x=0;x<size;x++){
+            for(int y=0;y<size;y++){
+                if(domain[x][y].size()==1){
+                    assignments[x][y] = domain[x][y].get(0);
+                }
+            }
+        }
+    }
 
     public KenKenPuzzle(int rs, int cs)
     {

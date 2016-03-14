@@ -61,6 +61,7 @@ public class KenKenDriver extends JFrame{
         arcCon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 puzzle.nodeConsistency();
+                puzzle.checkSingleDomain();
                 //changeCols();
             }
         });
