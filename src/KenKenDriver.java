@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 /**
  * Created by zachw on 2/25/16.
@@ -61,9 +62,9 @@ public class KenKenDriver extends JFrame{
         arcCon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 puzzle.nodeConsistency();
-                puzzle.archConsistency();
                 puzzle.checkSingleDomain();
-                //changeCols();
+
+
             }
         });
 

@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
+import java.util.List;
 
 public class KenKenDisplay extends JPanel {
 
@@ -17,7 +19,8 @@ public class KenKenDisplay extends JPanel {
     int letterOffSetAnswer_X=50;
 
     boolean lunchPuzzle = false;
-
+    List<Integer> flashList=new ArrayList<>();
+    boolean repaintext=true;
     Font bigFont = new Font("Arial", 1, 25);
     Font answerFont = new Font("Arial", 1, 50);
 
@@ -27,6 +30,10 @@ public class KenKenDisplay extends JPanel {
         repaint();
     }
 
+    public void setFlashList(List<Integer> input)
+    {
+        flashList=input;
+    }
 
     public void printObjectOutline(Graphics g) {
         g.setColor(Color.black);
@@ -83,23 +90,21 @@ public class KenKenDisplay extends JPanel {
 
             }
         }
-        int[][] assignments=puzzle.getAssignments();
-        g.setFont(answerFont);
-        for(int x=0;x<puzzle.getCols();x++)
-        {
-            for(int y=0;y<puzzle.getCols();y++)
-            {
+
+            int[][] assignments = puzzle.getAssignments();
+            g.setFont(answerFont);
+            for (int x = 0; x < puzzle.getCols(); x++) {
+                for (int y = 0; y < puzzle.getCols(); y++) {
 
 
-               if(assignments[x][y]>0)
-               {
-                   int z[]=printCubeSolver(x,y);
-                   g.drawString(""+assignments[x][y],z[0],z[1]);
-               }
+                    if (assignments[x][y] > 0) {
+                        int z[] = printCubeSolver(x, y);
+                        g.drawString("" + assignments[x][y], z[0], z[1]);
+                    }
+                }
             }
-        }
 
-
+        flashList=new ArrayList<>();
         lunchPuzzle = true;
         repaint();
     }
