@@ -173,39 +173,7 @@ public class KenKenPuzzle {
     }
 
     public void operatorArchConisitency(){
-        for(int x=0;x<size;x++)
-        {
-            for(int y=0;y<size;y++)
-            {
-                int pointer=constraint[x][y][1].get(0);
-                if(objectList[pointer].cubeList.size()==4){
-                    int goal = objectList[pointer].getGoal();
-                    List<Integer> boxlist = objectList[pointer].getCubeList();
-                    char operator = objectList[pointer].getOpertor();
-                    for (int z=0; z<domain[boxlist.get(0)][boxlist.get(1)].size();z++){
-                        int notPossible=0;
-                        for(int b2z=0; b2z<domain[boxlist.get(2)][boxlist.get(3)].size();b2z++){
-                            if (operator == '+'){
-                                if(domain[boxlist.get(0)][boxlist.get(1)].get(z) + domain[boxlist.get(2)][boxlist.get(3)].get(b2z) != goal){
-                                    notPossible++;
-                                }
-                            }else if (operator == '-'){
-
-                            }else if (operator == 'x'){
-
-                            }else{
-
-                            }
-                        }
-                        if(notPossible==domain[boxlist.get(2)][boxlist.get(3)].size()){
-                            System.out.println("box " + domain[boxlist.get(0)][boxlist.get(1)].toString());
-                            domain[boxlist.get(0)][boxlist.get(1)].remove(new Integer(z));
-                        }
-
-                    }
-                }
-            }
-        }
+        for (box: BoxObject.
     }
 
     public void checkSingleDomain(){
