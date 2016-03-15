@@ -161,14 +161,115 @@ public class KenKenPuzzle {
             if (objectList[objectCounter].getOpertor() == '+') {
 
             } else if (objectList[objectCounter].getOpertor() == '-') {
-                archConisitencySubtract(objectCounter);
+                //archConisitencySubtract(objectCounter);
             } else if (objectList[objectCounter].getOpertor() == '/') {
-
+                archConisitencyDivide(objectCounter);
             } else if (objectList[objectCounter].getOpertor() == 'x' || objectList[objectCounter].getOpertor() == 'X') {
 
             }
         }
     }
+
+private void archConisitencyDivide(int counter) {
+
+        int fisrtX = objectList[counter].cubeList.get(0);
+        int fisrtY = objectList[counter].cubeList.get(1);
+        int secondX = objectList[counter].cubeList.get(2);
+        int secondY = objectList[counter].cubeList.get(3);
+        int goal=objectList[counter].getGoal();
+        if (domain[fisrtX][fisrtY].size() == 1) {
+            int vault=domain[fisrtX][fisrtY].get(0);
+            int checklistY[] = new int[size];
+            for (int x = 0; x < size; x++) {
+                checklistY[x] = 0;
+            }
+            if(goal*vault<=size&&goal*vault>0)
+            {
+                checklistY[goal+vault-1]=1;
+            }
+            if(vault/goal<=size&&vault/goal>0)
+            {
+                checklistY[vault-goal-1]=1;
+            }
+            for (int x = 0; x < size; x++) {
+                if(checklistY[x]==0)
+                {
+                    domain[secondX][secondY].remove(new Integer(x+1));
+                }
+            }
+
+        } else if (domain[secondX][secondY].size() == 1) {
+            int vault=domain[secondX][secondY].get(0);
+            int checklistX[] = new int[size];
+            for (int x = 0; x < size; x++) {
+                checklistX[x] = 0;
+            }
+            if(goal*vault<=size&&goal*vault>0)
+            {
+                checklistX[goal+vault-1]=1;
+            }
+            if(vault/goal<=size&&vault/goal>0)
+            {
+                checklistX[vault-goal-1]=1;
+            }
+            for (int x = 0; x < size; x++) {
+                if(checklistX[x]==0)
+                {
+                    domain[fisrtX][fisrtY].remove(new Integer(x+1));
+                }
+            }
+        } else {
+            int checklistX[] = new int[size];
+            int checklistY[] = new int[size];
+            for (int x = 0; x < size; x++) {
+                checklistX[x] = 0;
+                checklistY[x] = 0;
+            }
+            for (int x = 1; x<= size; x++) {
+                for (int y = 1; y <= size; y++)
+                {
+                    if(goal*x==y)
+                    {
+                        if(checkdomain(fisrtX,fisrtY,x)&&checkdomain(secondX,secondY,y))
+                        {
+                            checklistX[x-1]=1;
+                            checklistY[y-1]=1;
+                        }
+
+                        if(checkdomain(secondX,secondY,x)&&checkdomain(fisrtX,fisrtY,y))
+                        {
+                            checklistX[y-1]=1;
+                            checklistY[x-1]=1;
+                        }
+
+
+
+                    }
+                }
+            }
+
+            System.out.println("domain:"+fisrtX+","+fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain:"+secondX+","+secondY);
+            System.out.println(domain[secondX][secondY].toString());
+            for (int x = 0; x < size; x++) {
+                if(checklistX[x]==0)
+                {
+                    domain[fisrtX][fisrtY].remove(new Integer(x+1));
+                }
+                if(checklistY[x]==0)
+                {
+                    domain[secondX][secondY].remove(new Integer(x+1));
+                }
+
+            }
+            System.out.println("domain:"+fisrtX+","+fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain:"+secondX+","+secondY);
+            System.out.println(domain[secondX][secondY].toString());
+        }
+    }
+
 
     public void archConisitencySubtract(int counter) {
         int fisrtX = objectList[counter].cubeList.get(0);

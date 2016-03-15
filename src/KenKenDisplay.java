@@ -1,8 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import java.util.List;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class KenKenDisplay extends JPanel {
 
@@ -19,7 +18,6 @@ public class KenKenDisplay extends JPanel {
     int letterOffSetAnswer_X=50;
 
     boolean lunchPuzzle = false;
-    List<Integer> flashList=new ArrayList<>();
     boolean repaintext=true;
     Font bigFont = new Font("Arial", 1, 25);
     Font answerFont = new Font("Arial", 1, 50);
@@ -28,11 +26,6 @@ public class KenKenDisplay extends JPanel {
         objectList = boxObjects;
         lunchPuzzle = true;
         repaint();
-    }
-
-    public void setFlashList(List<Integer> input)
-    {
-        flashList=input;
     }
 
     public void printObjectOutline(Graphics g) {
@@ -104,7 +97,6 @@ public class KenKenDisplay extends JPanel {
                 }
             }
 
-        flashList=new ArrayList<>();
         lunchPuzzle = true;
         repaint();
     }
