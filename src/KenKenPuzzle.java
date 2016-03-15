@@ -173,7 +173,7 @@ public class KenKenPuzzle {
     }
 
     public void operatorArchConisitency(){
-        for (box: BoxObject.
+        
     }
 
     public void checkSingleDomain(){
