@@ -115,13 +115,13 @@ public class KenKenDisplay extends JPanel {
             if (loc1[0] > loc2[0]) {
                 returnValue[0] = start_X + (loc1[1]) * (divWid + cellSize) ;
                 returnValue[1] = start_y + (loc1[0]) * (divWid + cellSize) ;
-                returnValue[2] = cellSize + divWid;
+                returnValue[2] = cellSize + divWid*2;
                 returnValue[3] = divWid;
             }
             if (loc1[0] < loc2[0]) {
                 returnValue[0] = start_X + ((loc2[1]) * (divWid + cellSize));
                 returnValue[1] = start_y + ((loc2[0]) * (divWid + cellSize));
-                returnValue[2] = cellSize + divWid;
+                returnValue[2] = cellSize + divWid*2;
                 returnValue[3] = divWid;
             }
         }
@@ -130,13 +130,13 @@ public class KenKenDisplay extends JPanel {
                 returnValue[0] = start_X + (loc2[1] + 1) * (divWid + cellSize);
                 returnValue[1] = start_y + (loc2[0]) * (divWid + cellSize);
                 returnValue[2] = divWid;
-                returnValue[3] = cellSize + divWid;
+                returnValue[3] = cellSize + divWid*2;
             }
             if (loc1[1] < loc2[1]) {
                 returnValue[0] = start_X + ((loc1[1] + 1) * (divWid + cellSize));
                 returnValue[1] = start_y + ((loc1[0]) * (divWid + cellSize));
                 returnValue[2] = divWid;
-                returnValue[3] = cellSize + divWid;
+                returnValue[3] = cellSize + divWid*2;
             }
         }
 

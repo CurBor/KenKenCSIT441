@@ -63,7 +63,7 @@ public class KenKenDriver extends JFrame{
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 puzzle.nodeConsistency();
                 puzzle.checkSingleDomain();
-
+                puzzle.archConsistency();
 
             }
         });
