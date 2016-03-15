@@ -161,7 +161,7 @@ public class KenKenPuzzle {
             if (objectList[objectCounter].getOpertor() == '+') {
 
             } else if (objectList[objectCounter].getOpertor() == '-') {
-                //archConisitencySubtract(objectCounter);
+                archConisitencySubtract(objectCounter);
             } else if (objectList[objectCounter].getOpertor() == '/') {
                 archConisitencyDivide(objectCounter);
             } else if (objectList[objectCounter].getOpertor() == 'x' || objectList[objectCounter].getOpertor() == 'X') {
