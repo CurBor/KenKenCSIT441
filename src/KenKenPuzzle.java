@@ -154,7 +154,7 @@ public class KenKenPuzzle {
             } else if (objectList[objectCounter].getOpertor() == '/') {
                 archConisitencyDivide(objectCounter);
             } else if (objectList[objectCounter].getOpertor() == 'x' || objectList[objectCounter].getOpertor() == 'X') {
-
+                archConisitencyMultiply(objectCounter);
             }
         }
     }
