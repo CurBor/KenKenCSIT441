@@ -17,17 +17,7 @@ public class KenKenPuzzle {
     private BoxObject objectList[];
     private List<Integer> domain[][];
     private List<Integer> constraint[][][];
-    private int[][] assignments = {
-            {-1, -1, -1, -1, -1, 4, -1, -1},
-            {-1, -1, -1, -1, -1, -1, -1, -1},
-            {-1, 4, -1, -1, -1, -1, -1, -1},
-            {-1, -1, -1, -1, -1, 9, -1, -1},
-            {-1, -1, 8, -1, -1, -1, -1, -1},
-            {-1, -1, -1, -1, -1, -1, -1, -1},
-            {6, -1, -1, -1, -1, -1, -1, -1},
-            {-1, -1, -1, -1, -1, -1, -1, -1}};
-
-    Random randGen;
+    private int[][] assignments;
 
 
     public BoxObject[] getObjectList() {
@@ -60,7 +50,7 @@ public class KenKenPuzzle {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 constraint[x][y][0] = setNotEqual(x, y);
-                System.out.println(constraint[x][y][0].toString());
+//                System.out.println(constraint[x][y][0].toString());
                 constraint[x][y][1] = setRelationshipConstaint(x, y);
                 //System.out.println(constraint[x][y][1].toString());
             }
@@ -159,7 +149,7 @@ public class KenKenPuzzle {
     public void operatorArchConisitency() {
         for (int objectCounter = 0; objectCounter < objectList.length-1; objectCounter++) {
             if (objectList[objectCounter].getOpertor() == '+') {
-
+                //archConisitencyPlus(objectCounter);
             } else if (objectList[objectCounter].getOpertor() == '-') {
                 archConisitencySubtract(objectCounter);
             } else if (objectList[objectCounter].getOpertor() == '/') {
@@ -170,7 +160,77 @@ public class KenKenPuzzle {
         }
     }
 
-private void archConisitencyDivide(int counter) {
+    private void archConisitencyPlus(int counter) {
+        int goal = objectList[counter].getGoal();
+        List<Integer> list = objectList[counter].getCubeList();
+
+        for (int x = 0; x < list.size() / 2; x++) {
+            if (domain[list.get(2 * x)][list.get(2 * x + 1)].size() == 1&& list.size()>2) {
+                goal = goal - domain[list.get(2 * x)][list.get(2 * x + 1)].get(0);
+                list.remove(2 * x);
+                list.remove(2 * x + 1);
+                x--;
+            }
+        }
+
+        if (list.size() / 2 == 1) {
+            if (goal > 0 && goal <= size) {
+                for (int z = 0; z < domain[list.get(z*2)][list.get(z*2+1)].size()/2; z++) {
+                    if (domain[list.get(z*2)][list.get(z*2+1)].get(z) != goal) {
+                        domain[list.get(0)][list.get(1)].remove(z);
+                        z--;
+                    }
+                }
+            }
+        }else if(list.size()/2==2){
+            int fisrtX = list.get(0);
+            int fisrtY = list.get(1);
+            int secondX = list.get(2);
+            int secondY = list.get(3);
+
+            int checklistX[] = new int[size];
+            int checklistY[] = new int[size];
+            for (int x = 0; x < size; x++) {
+                checklistX[x] = 0;
+                checklistY[x] = 0;
+            }
+            for (int x = 1; x<= size; x++) {
+                for (int y = 1; y <= size; y++)
+                {
+                    if(goal==x+y)
+                    {
+                        if(checkdomain(fisrtX,fisrtY,x)&&checkdomain(secondX,secondY,y))
+                        {
+                            checklistX[x-1]=1;
+                            checklistY[y-1]=1;
+                        }
+                    }
+                }
+            }
+//
+//            System.out.println("domain +:"+fisrtX+","+fisrtY);
+//            System.out.println(domain[fisrtX][fisrtY].toString());
+//            System.out.println("domain +:"+secondX+","+secondY);
+//            System.out.println(domain[secondX][secondY].toString());
+            for (int x = 0; x < size; x++) {
+                if(checklistX[x]==0)
+                {
+                    domain[fisrtX][fisrtY].remove(new Integer(x+1));
+                }
+                if(checklistY[x]==0)
+                {
+                    domain[secondX][secondY].remove(new Integer(x+1));
+                }
+
+            }
+//            System.out.println("domain +:"+fisrtX+","+fisrtY);
+//            System.out.println(domain[fisrtX][fisrtY].toString());
+//            System.out.println("domain +:"+secondX+","+secondY);
+//            System.out.println(domain[secondX][secondY].toString());
+
+        }
+    }
+    private void archConisitencyDivide(int counter) {
 
         int fisrtX = objectList[counter].cubeList.get(0);
         int fisrtY = objectList[counter].cubeList.get(1);
@@ -235,23 +295,19 @@ private void archConisitencyDivide(int counter) {
                             checklistX[x-1]=1;
                             checklistY[y-1]=1;
                         }
-
                         if(checkdomain(secondX,secondY,x)&&checkdomain(fisrtX,fisrtY,y))
                         {
                             checklistX[y-1]=1;
                             checklistY[x-1]=1;
                         }
-
-
-
                     }
                 }
             }
-
-            System.out.println("domain:"+fisrtX+","+fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain:"+secondX+","+secondY);
-            System.out.println(domain[secondX][secondY].toString());
+//
+//            System.out.println("domain:"+fisrtX+","+fisrtY);
+//            System.out.println(domain[fisrtX][fisrtY].toString());
+//            System.out.println("domain:"+secondX+","+secondY);
+//            System.out.println(domain[secondX][secondY].toString());
             for (int x = 0; x < size; x++) {
                 if(checklistX[x]==0)
                 {
@@ -263,10 +319,10 @@ private void archConisitencyDivide(int counter) {
                 }
 
             }
-            System.out.println("domain:"+fisrtX+","+fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain:"+secondX+","+secondY);
-            System.out.println(domain[secondX][secondY].toString());
+//            System.out.println("domain:"+fisrtX+","+fisrtY);
+//            System.out.println(domain[fisrtX][fisrtY].toString());
+//            System.out.println("domain:"+secondX+","+secondY);
+//            System.out.println(domain[secondX][secondY].toString());
         }
     }
 
@@ -348,10 +404,10 @@ private void archConisitencyDivide(int counter) {
                 }
             }
 
-            System.out.println("domain:"+fisrtX+","+fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain:"+secondX+","+secondY);
-            System.out.println(domain[secondX][secondY].toString());
+//            System.out.println("domain:"+fisrtX+","+fisrtY);
+//            System.out.println(domain[fisrtX][fisrtY].toString());
+//            System.out.println("domain:"+secondX+","+secondY);
+//            System.out.println(domain[secondX][secondY].toString());
             for (int x = 0; x < size; x++) {
                 if(checklistX[x]==0)
                 {
@@ -363,10 +419,10 @@ private void archConisitencyDivide(int counter) {
                 }
 
             }
-            System.out.println("domain:"+fisrtX+","+fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain:"+secondX+","+secondY);
-            System.out.println(domain[secondX][secondY].toString());
+//            System.out.println("domain:"+fisrtX+","+fisrtY);
+//            System.out.println(domain[fisrtX][fisrtY].toString());
+//            System.out.println("domain:"+secondX+","+secondY);
+//            System.out.println(domain[secondX][secondY].toString());
         }
     }
     public boolean checkdomain(int x, int y, int check)
@@ -409,7 +465,7 @@ private void archConisitencyDivide(int counter) {
 
     public void generateMove(int r, int c, int input) {
 
-        System.out.println(r + "  " + c);
+//        System.out.println(r + "  " + c);
         assignments[r][c] = input;
     }
 
