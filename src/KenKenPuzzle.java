@@ -355,7 +355,7 @@ public class KenKenPuzzle {
                     for (int z = 1; z <= size; z++)
                         for (int f = 1; f <= size; f++)
                             for(int g=1;g<=size;g++)
-                            if (goal == x + y + z + f) {
+                            if (goal == x + y + z + f+g) {
                                 if (checkdomain(firstX, firstY, x) && checkdomain(secondX, secondY, y) && checkdomain(thirdX, thirdY, z) && checkdomain(fourthX, firstY, f)&&checkdomain(fivethX,fivethY,g)) {
                                     checklist1[x - 1] = 1;
                                     checklist2[y - 1] = 1;
