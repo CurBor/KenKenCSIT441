@@ -355,7 +355,7 @@ public class KenKenPuzzle {
                     for (int z = 1; z <= size; z++)
                         for (int f = 1; f <= size; f++)
                             for(int g=1;g<=size;g++)
-                            if (goal == x + y + z + f) {
+                            if (goal == x + y + z + f + g) {
                                 if (checkdomain(firstX, firstY, x) && checkdomain(secondX, secondY, y) && checkdomain(thirdX, thirdY, z) && checkdomain(fourthX, firstY, f)&&checkdomain(fivethX,fivethY,g)) {
                                     checklist1[x - 1] = 1;
                                     checklist2[y - 1] = 1;
@@ -385,6 +385,136 @@ public class KenKenPuzzle {
             }
 
         }
+    }
+
+    private void archConisitencyMultiply(int counter) {
+        int goal = objectList[counter].getGoal();
+        List<Integer>  list = new ArrayList<Integer>();
+        for(int x=0; x<objectList[counter].getCubeList().size();x++){
+            list.add(objectList[counter].cubeList.get(x));
+        }
+
+
+        for (int x = 0; x < list.size() / 2; x++) {
+            if (domain[list.get(2 * x)][list.get(2 * x + 1)].size() == 1&& list.size()>2) {
+                goal = goal / domain[list.get(2 * x)][list.get(2 * x + 1)].get(0);
+                list.remove(2 * x);
+                list.remove(2 * x + 1);
+                x--;
+            }
+        }
+
+        if (list.size() / 2 == 1) {
+            if (goal > 0 && goal <= size&&checkdomain(list.get(0),list.get(1),goal)) {
+                domain[list.get(0)][list.get(1)]=new ArrayList<Integer>();
+                domain[list.get(0)][list.get(1)].add(goal);
+            }
+        }else if(list.size()/2==2){
+            int fisrtX = list.get(0);
+            int fisrtY = list.get(1);
+            int secondX = list.get(2);
+            int secondY = list.get(3);
+
+            int checklistX[] = new int[size];
+            int checklistY[] = new int[size];
+            for (int x = 0; x < size; x++) {
+                checklistX[x] = 0;
+                checklistY[x] = 0;
+            }
+            for (int x = 1; x<= size; x++) {
+                for (int y = 1; y <= size; y++)
+                {
+                    if(goal==x*y)
+                    {
+                        if(checkdomain(fisrtX,fisrtY,x)&&checkdomain(secondX,secondY,y))
+                        {
+                            checklistX[x-1]=1;
+                            checklistY[y-1]=1;
+                        }
+                    }
+                }
+            }
+//
+//            System.out.println("domain +:"+fisrtX+","+fisrtY);
+//            System.out.println(domain[fisrtX][fisrtY].toString());
+//            System.out.println("domain +:"+secondX+","+secondY);
+//            System.out.println(domain[secondX][secondY].toString());
+            for (int x = 0; x < size; x++) {
+                if(checklistX[x]==0)
+                {
+                    domain[fisrtX][fisrtY].remove(new Integer(x+1));
+                }
+                if(checklistY[x]==0)
+                {
+                    domain[secondX][secondY].remove(new Integer(x+1));
+                }
+
+            }
+//            System.out.println("domain +:"+fisrtX+","+fisrtY);
+//            System.out.println(domain[fisrtX][fisrtY].toString());
+//            System.out.println("domain +:"+secondX+","+secondY);
+//            System.out.println(domain[secondX][secondY].toString());
+
+        }else if(list.size()/2==3){
+            int fisrtX = list.get(0);
+            int fisrtY = list.get(1);
+            int secondX = list.get(2);
+            int secondY = list.get(3);
+            int thirdX=list.get(4);
+            int thirdY=list.get(5);
+
+            int checklist1[] = new int[size];
+            int checklist2[] = new int[size];
+            int checklist3[]= new int [size];
+            for (int x = 0; x < size; x++) {
+                checklist1[x] = 0;
+                checklist2[x] = 0;
+                checklist3[x]=0;
+            }
+            for (int x = 1; x<= size; x++) {
+                for (int y = 1; y <= size; y++)
+                    for(int z=1;z<=size;z++)
+                        if(goal==x*y*z)
+                        {
+                            if(checkdomain(fisrtX,fisrtY,x)&&checkdomain(secondX,secondY,y)&&checkdomain(thirdX,thirdY,z))
+                            {
+                                checklist1[x-1]=1;
+                                checklist2[y-1]=1;
+                                checklist3[z-1]=1;
+                            }
+                        }
+            }
+
+
+            System.out.println("domain 3+:"+fisrtX+","+fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain 3+:"+secondX+","+secondY);
+            System.out.println(domain[secondX][secondY].toString());
+            System.out.println("domain 3+:"+thirdX+","+thirdY);
+            System.out.println(domain[thirdX][thirdY].toString());
+            for (int x = 0; x < size; x++) {
+                if(checklist1[x]==0)
+                {
+                    domain[fisrtX][fisrtY].remove(new Integer(x+1));
+                }
+                if(checklist2[x]==0)
+                {
+                    domain[secondX][secondY].remove(new Integer(x+1));
+                }
+                if(checklist3[x]==0)
+                {
+                    domain[thirdX][thirdY].remove(new Integer(x+1));
+                }
+            }
+            System.out.println("domain 3+:"+fisrtX+","+fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain 3+:"+secondX+","+secondY);
+            System.out.println(domain[secondX][secondY].toString());
+            System.out.println("domain 3+:"+thirdX+","+thirdY);
+            System.out.println(domain[thirdX][thirdY].toString());
+
+        }
+
     }
 
     private void archConisitencyDivide(int counter) {
