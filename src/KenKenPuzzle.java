@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by zachw on 2/25/16.
@@ -149,7 +148,7 @@ public class KenKenPuzzle {
     public void operatorArchConisitency() {
         for (int objectCounter = 0; objectCounter < objectList.length-1; objectCounter++) {
             if (objectList[objectCounter].getOpertor() == '+') {
-                //archConisitencyPlus(objectCounter);
+                archConisitencyPlus(objectCounter);
             } else if (objectList[objectCounter].getOpertor() == '-') {
                 archConisitencySubtract(objectCounter);
             } else if (objectList[objectCounter].getOpertor() == '/') {
@@ -162,7 +161,11 @@ public class KenKenPuzzle {
 
     private void archConisitencyPlus(int counter) {
         int goal = objectList[counter].getGoal();
-        List<Integer> list = objectList[counter].getCubeList();
+        List<Integer>  list = new ArrayList<Integer>();
+        for(int x=0; x<objectList[counter].getCubeList().size();x++){
+            list.add(objectList[counter].cubeList.get(x));
+        }
+
 
         for (int x = 0; x < list.size() / 2; x++) {
             if (domain[list.get(2 * x)][list.get(2 * x + 1)].size() == 1&& list.size()>2) {
@@ -174,13 +177,9 @@ public class KenKenPuzzle {
         }
 
         if (list.size() / 2 == 1) {
-            if (goal > 0 && goal <= size) {
-                for (int z = 0; z < domain[list.get(z*2)][list.get(z*2+1)].size()/2; z++) {
-                    if (domain[list.get(z*2)][list.get(z*2+1)].get(z) != goal) {
-                        domain[list.get(0)][list.get(1)].remove(z);
-                        z--;
-                    }
-                }
+            if (goal > 0 && goal <= size&&checkdomain(list.get(0),list.get(1),goal)) {
+                domain[list.get(0)][list.get(1)]=new ArrayList<Integer>();
+                domain[list.get(0)][list.get(1)].add(goal);
             }
         }else if(list.size()/2==2){
             int fisrtX = list.get(0);
@@ -442,6 +441,7 @@ public class KenKenPuzzle {
             for (int y = 0; y < size; y++) {
                 if (domain[x][y].size() == 1) {
                     assignments[x][y] = domain[x][y].get(0);
+
                 }
             }
         }
