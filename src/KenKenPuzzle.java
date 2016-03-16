@@ -49,7 +49,7 @@ public class KenKenPuzzle {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 constraint[x][y][0] = setNotEqual(x, y);
-//                System.out.println(constraint[x][y][0].toString());
+                System.out.println(constraint[x][y][0].toString());
                 constraint[x][y][1] = setRelationshipConstaint(x, y);
                 //System.out.println(constraint[x][y][1].toString());
             }
@@ -168,13 +168,15 @@ public class KenKenPuzzle {
 
 
         for (int x = 0; x < list.size() / 2; x++) {
-            if (domain[list.get(2 * x)][list.get(2 * x + 1)].size() == 1&& list.size()>2) {
+            if (domain[list.get(2 * x)][list.get(2 * x + 1)].size() == 1&&list.size()<=2) {
                 goal = goal - domain[list.get(2 * x)][list.get(2 * x + 1)].get(0);
                 list.remove(2 * x);
                 list.remove(2 * x + 1);
+                System.out.println(list.size());
                 x--;
             }
         }
+        System.out.println(list.size() / 2);
 
         if (list.size() / 2 == 1) {
             if (goal > 0 && goal <= size&&checkdomain(list.get(0),list.get(1),goal)) {
@@ -206,11 +208,11 @@ public class KenKenPuzzle {
                     }
                 }
             }
-//
-//            System.out.println("domain +:"+fisrtX+","+fisrtY);
-//            System.out.println(domain[fisrtX][fisrtY].toString());
-//            System.out.println("domain +:"+secondX+","+secondY);
-//            System.out.println(domain[secondX][secondY].toString());
+
+            System.out.println("domain +:"+fisrtX+","+fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain +:"+secondX+","+secondY);
+            System.out.println(domain[secondX][secondY].toString());
             for (int x = 0; x < size; x++) {
                 if(checklistX[x]==0)
                 {
@@ -222,10 +224,68 @@ public class KenKenPuzzle {
                 }
 
             }
-//            System.out.println("domain +:"+fisrtX+","+fisrtY);
-//            System.out.println(domain[fisrtX][fisrtY].toString());
-//            System.out.println("domain +:"+secondX+","+secondY);
-//            System.out.println(domain[secondX][secondY].toString());
+            System.out.println("domain +:"+fisrtX+","+fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain +:"+secondX+","+secondY);
+            System.out.println(domain[secondX][secondY].toString());
+
+        }else if(list.size()/2==3){
+            int fisrtX = list.get(0);
+            int fisrtY = list.get(1);
+            int secondX = list.get(2);
+            int secondY = list.get(3);
+            int thirdX=list.get(4);
+            int thirdY=list.get(5);
+
+            int checklist1[] = new int[size];
+            int checklist2[] = new int[size];
+            int checklist3[]= new int [size];
+            for (int x = 0; x < size; x++) {
+                checklist1[x] = 0;
+                checklist2[x] = 0;
+                checklist3[x]=0;
+            }
+            for (int x = 1; x<= size; x++) {
+                for (int y = 1; y <= size; y++)
+                for(int z=1;z<=size;z++)
+                    if(goal==x+y+z)
+                    {
+                        if(checkdomain(fisrtX,fisrtY,x)&&checkdomain(secondX,secondY,y)&&checkdomain(thirdX,thirdY,z))
+                        {
+                            checklist1[x-1]=1;
+                            checklist2[y-1]=1;
+                            checklist3[z-1]=1;
+                        }
+                    }
+                }
+
+
+            System.out.println("domain 3+:"+fisrtX+","+fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain 3+:"+secondX+","+secondY);
+            System.out.println(domain[secondX][secondY].toString());
+            System.out.println("domain 3+:"+thirdX+","+thirdY);
+            System.out.println(domain[thirdX][thirdY].toString());
+            for (int x = 0; x < size; x++) {
+                if(checklist1[x]==0)
+                {
+                    domain[fisrtX][fisrtY].remove(new Integer(x+1));
+                }
+                if(checklist2[x]==0)
+                {
+                    domain[secondX][secondY].remove(new Integer(x+1));
+                }
+                if(checklist3[x]==0)
+                {
+                    domain[thirdX][thirdY].remove(new Integer(x+1));
+                }
+            }
+            System.out.println("domain 3+:"+fisrtX+","+fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain 3+:"+secondX+","+secondY);
+            System.out.println(domain[secondX][secondY].toString());
+            System.out.println("domain 3+:"+thirdX+","+thirdY);
+            System.out.println(domain[thirdX][thirdY].toString());
 
         }
     }
@@ -302,11 +362,11 @@ public class KenKenPuzzle {
                     }
                 }
             }
-//
-//            System.out.println("domain:"+fisrtX+","+fisrtY);
-//            System.out.println(domain[fisrtX][fisrtY].toString());
-//            System.out.println("domain:"+secondX+","+secondY);
-//            System.out.println(domain[secondX][secondY].toString());
+
+            System.out.println("domain:"+fisrtX+","+fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain:"+secondX+","+secondY);
+            System.out.println(domain[secondX][secondY].toString());
             for (int x = 0; x < size; x++) {
                 if(checklistX[x]==0)
                 {
@@ -318,10 +378,10 @@ public class KenKenPuzzle {
                 }
 
             }
-//            System.out.println("domain:"+fisrtX+","+fisrtY);
-//            System.out.println(domain[fisrtX][fisrtY].toString());
-//            System.out.println("domain:"+secondX+","+secondY);
-//            System.out.println(domain[secondX][secondY].toString());
+            System.out.println("domain:"+fisrtX+","+fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain:"+secondX+","+secondY);
+            System.out.println(domain[secondX][secondY].toString());
         }
     }
 
@@ -403,10 +463,10 @@ public class KenKenPuzzle {
                 }
             }
 
-//            System.out.println("domain:"+fisrtX+","+fisrtY);
-//            System.out.println(domain[fisrtX][fisrtY].toString());
-//            System.out.println("domain:"+secondX+","+secondY);
-//            System.out.println(domain[secondX][secondY].toString());
+            System.out.println("domain:"+fisrtX+","+fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain:"+secondX+","+secondY);
+            System.out.println(domain[secondX][secondY].toString());
             for (int x = 0; x < size; x++) {
                 if(checklistX[x]==0)
                 {
@@ -418,10 +478,10 @@ public class KenKenPuzzle {
                 }
 
             }
-//            System.out.println("domain:"+fisrtX+","+fisrtY);
-//            System.out.println(domain[fisrtX][fisrtY].toString());
-//            System.out.println("domain:"+secondX+","+secondY);
-//            System.out.println(domain[secondX][secondY].toString());
+            System.out.println("domain:"+fisrtX+","+fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain:"+secondX+","+secondY);
+            System.out.println(domain[secondX][secondY].toString());
         }
     }
     public boolean checkdomain(int x, int y, int check)
@@ -465,7 +525,7 @@ public class KenKenPuzzle {
 
     public void generateMove(int r, int c, int input) {
 
-//        System.out.println(r + "  " + c);
+        System.out.println(r + "  " + c);
         assignments[r][c] = input;
     }
 
