@@ -697,6 +697,26 @@ public class KenKenPuzzle {
         return false;
     }
 
+    public boolean checkDomainPossibly(List<Integer> testDomain[][]){
+
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                for (int c = 0; c < constraint[x][y][0].size(); c += 2) {
+                    int compBoxX = constraint[x][y][0].get(c);
+                    int compBoxY = constraint[x][y][0].get(c + 1);
+                    if (testDomain[x][y].size() == 1) {
+                        if (testDomain[compBoxX][compBoxY].contains(testDomain[x][y].get(0))) {
+                            return false;
+                            //System.out.println("from box: " + compBoxX + compBoxY + " and compbox domain size" + domain[compBoxX][compBoxY].toString());
+                        }
+                    }
+                }
+
+            }
+        }
+        return true;
+    }
+
     public void checkSingleDomain() {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
