@@ -144,13 +144,6 @@ public class KenKenDisplay extends JPanel {
         return returnValue;
     }
 
-
-
-
-
-
-
-
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.black);

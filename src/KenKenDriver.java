@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
 
 /**
  * Created by zachw on 2/25/16.
@@ -41,6 +40,7 @@ public class KenKenDriver extends JFrame{
         JMenuBar mBar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
         JMenuItem loadGame = new JMenuItem("load");
+        JMenuItem nodeCon = new JMenuItem("run node consistency");
         JMenuItem arcCon = new JMenuItem("run arc consistency");
 
         loadGame.addActionListener(new java.awt.event.ActionListener() {
@@ -61,10 +61,16 @@ public class KenKenDriver extends JFrame{
 
         arcCon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                puzzle.nodeConsistency();
                 puzzle.checkSingleDomain();
                 puzzle.archConsistency();
 
+            }
+        });
+
+        nodeCon.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent evt){
+                puzzle.nodeConsistency();
+                puzzle.checkSingleDomain();
             }
         });
 
@@ -72,6 +78,7 @@ public class KenKenDriver extends JFrame{
         mBar.add(menu);
         menu.add(loadGame);
         menu.add(arcCon);
+        menu.add(nodeCon);
 
         this.setJMenuBar(mBar);
     }
