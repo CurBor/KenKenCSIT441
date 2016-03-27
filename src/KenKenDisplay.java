@@ -14,11 +14,11 @@ public class KenKenDisplay extends JPanel {
     int start_y = 50;
     int letterOffSet_Y = 25;
     int letterOffSet_X = 10;
-    int letterOffSetAnswer_Y=85;
-    int letterOffSetAnswer_X=50;
+    int letterOffSetAnswer_Y = 85;
+    int letterOffSetAnswer_X = 50;
 
     boolean lunchPuzzle = false;
-    boolean repaintext=true;
+    boolean repaintext = true;
     Font bigFont = new Font("Arial", 1, 25);
     Font answerFont = new Font("Arial", 1, 50);
 
@@ -33,17 +33,16 @@ public class KenKenDisplay extends JPanel {
         for (int countObject = 0; countObject < objectList.length - 1; countObject++) {
             //print operator and goal for each block
 
-            int firstcube[]= objectList[countObject].indexOfCube(0);
-            char getOpertor=objectList[countObject].getOpertor();
-            if(getOpertor=='/')
-            {
-                getOpertor='÷';
+            int firstcube[] = objectList[countObject].indexOfCube(0);
+            char getOpertor = objectList[countObject].getOpertor();
+            if (getOpertor == '/') {
+                getOpertor = '÷';
             }
-            String in=""+objectList[countObject].getGoal()+getOpertor;
+            String in = "" + objectList[countObject].getGoal() + getOpertor;
             g.setFont(bigFont);
-            g.drawString(in, start_X+
-                            divWid+(cellSize+divWid)*firstcube[1]+letterOffSet_X,
-                    start_y+divWid+(cellSize+divWid)*firstcube[0]+letterOffSet_Y);
+            g.drawString(in, start_X +
+                            divWid + (cellSize + divWid) * firstcube[1] + letterOffSet_X,
+                    start_y + divWid + (cellSize + divWid) * firstcube[0] + letterOffSet_Y);
 
 
             //printBoard
@@ -54,8 +53,8 @@ public class KenKenDisplay extends JPanel {
                     boolean needPrintBorader = true;
 
                     for (int y = 0; y < objectList[countObject].getCubeList().size() / 2; y++) {
-                        int cubelist[]= objectList[countObject].indexOfCube(y);
-                        if (testInlist[1]==cubelist[1]&& testInlist[0]==cubelist[0]) {
+                        int cubelist[] = objectList[countObject].indexOfCube(y);
+                        if (testInlist[1] == cubelist[1] && testInlist[0] == cubelist[0]) {
                             needPrintBorader = false;
                         }
                     }
@@ -69,8 +68,8 @@ public class KenKenDisplay extends JPanel {
                     boolean needPrintBorader = true;
 
                     for (int y = 0; y < objectList[countObject].getCubeList().size() / 2; y++) {
-                        int cubelist[]= objectList[countObject].indexOfCube(y);
-                        if (testInlist[1]==cubelist[1]&& testInlist[0]==cubelist[0]) {
+                        int cubelist[] = objectList[countObject].indexOfCube(y);
+                        if (testInlist[1] == cubelist[1] && testInlist[0] == cubelist[0]) {
                             needPrintBorader = false;
                         }
                     }
@@ -84,18 +83,18 @@ public class KenKenDisplay extends JPanel {
             }
         }
 
-            int[][] assignments = puzzle.getAssignments();
-            g.setFont(answerFont);
-            for (int x = 0; x < puzzle.getCols(); x++) {
-                for (int y = 0; y < puzzle.getCols(); y++) {
+        int[][] assignments = puzzle.getAssignments();
+        g.setFont(answerFont);
+        for (int x = 0; x < puzzle.getCols(); x++) {
+            for (int y = 0; y < puzzle.getCols(); y++) {
 
 
-                    if (assignments[x][y] > 0) {
-                        int z[] = printCubeSolver(x, y);
-                        g.drawString("" + assignments[x][y], z[0], z[1]);
-                    }
+                if (assignments[x][y] > 0) {
+                    int z[] = printCubeSolver(x, y);
+                    g.drawString("" + assignments[x][y], z[0], z[1]);
                 }
             }
+        }
 
         lunchPuzzle = true;
         repaint();
@@ -105,15 +104,15 @@ public class KenKenDisplay extends JPanel {
         int[] returnValue = new int[4];
         if (loc1[1] == loc2[1]) {
             if (loc1[0] > loc2[0]) {
-                returnValue[0] = start_X + (loc1[1]) * (divWid + cellSize) ;
-                returnValue[1] = start_y + (loc1[0]) * (divWid + cellSize) ;
-                returnValue[2] = cellSize + divWid*2;
+                returnValue[0] = start_X + (loc1[1]) * (divWid + cellSize);
+                returnValue[1] = start_y + (loc1[0]) * (divWid + cellSize);
+                returnValue[2] = cellSize + divWid * 2;
                 returnValue[3] = divWid;
             }
             if (loc1[0] < loc2[0]) {
                 returnValue[0] = start_X + ((loc2[1]) * (divWid + cellSize));
                 returnValue[1] = start_y + ((loc2[0]) * (divWid + cellSize));
-                returnValue[2] = cellSize + divWid*2;
+                returnValue[2] = cellSize + divWid * 2;
                 returnValue[3] = divWid;
             }
         }
@@ -122,23 +121,24 @@ public class KenKenDisplay extends JPanel {
                 returnValue[0] = start_X + (loc2[1] + 1) * (divWid + cellSize);
                 returnValue[1] = start_y + (loc2[0]) * (divWid + cellSize);
                 returnValue[2] = divWid;
-                returnValue[3] = cellSize + divWid*2;
+                returnValue[3] = cellSize + divWid * 2;
             }
             if (loc1[1] < loc2[1]) {
                 returnValue[0] = start_X + ((loc1[1] + 1) * (divWid + cellSize));
                 returnValue[1] = start_y + ((loc1[0]) * (divWid + cellSize));
                 returnValue[2] = divWid;
-                returnValue[3] = cellSize + divWid*2;
+                returnValue[3] = cellSize + divWid * 2;
             }
         }
 
         return returnValue;
     }
+
     public int[] printCubeSolver(int row, int col) {
         int[] returnValue = new int[2];
 
-        returnValue[0]=start_X+col*(divWid + cellSize)+letterOffSetAnswer_X;
-        returnValue[1]=start_y+row*(divWid + cellSize)+letterOffSetAnswer_Y;
+        returnValue[0] = start_X + col * (divWid + cellSize) + letterOffSetAnswer_X;
+        returnValue[1] = start_y + row * (divWid + cellSize) + letterOffSetAnswer_Y;
 
 
         return returnValue;
@@ -163,6 +163,7 @@ public class KenKenDisplay extends JPanel {
             printObjectOutline(g);
         }
     }
+
     public KenKenDisplay(KenKenPuzzle p) {
         puzzle = p;
 
@@ -175,37 +176,35 @@ public class KenKenDisplay extends JPanel {
     }
 
     public void processClick(MouseEvent me) {
-        if(!lunchPuzzle)
-        {
+        if (!lunchPuzzle) {
             return;
         }
         int x = me.getX();
         int y = me.getY();
 
-        if((y - start_y - divWid)>0 && (x - start_X - divWid)>0) {
+        if ((y - start_y - divWid) > 0 && (x - start_X - divWid) > 0) {
 
             int selectedRow = (y - start_y - divWid) / (cellSize + divWid);
             int selectedCol = (x - start_X - divWid) / (cellSize + divWid);
 
             if (selectedRow < puzzle.getRows() && selectedCol < puzzle.getCols()) {
-                String input=JOptionPane.showInputDialog(null,"Please enter what do you want to fill in ("+(selectedRow+1)+" , "+(selectedCol+1)+")\n" +
-                        "In the range 1-"+puzzle.getCols()+".","Input Dialog",1);
-                int inputInteger=0;
+                String input = JOptionPane.showInputDialog(null, "Please enter what do you want to fill in (" + (selectedRow + 1) + " , " + (selectedCol + 1) + ")\n" +
+                        "In the range 1-" + puzzle.getCols() + ".\n0 for clean.", "Input Dialog", 1);
+                int inputInteger = 0;
 
-                try{
-                    inputInteger=Integer.parseInt(input);
-                }catch (java.lang.NumberFormatException e){
-                    if(input!=null)
-                        JOptionPane.showMessageDialog(null,"You enter a invalid input","Wrong Input!",2);
+                try {
+                    inputInteger = Integer.parseInt(input);
+                } catch (java.lang.NumberFormatException e) {
+                    if (input != null)
+                        JOptionPane.showMessageDialog(null, "You enter a invalid input", "Wrong Input!", 2);
                     return;
                 }
-                if(inputInteger>0&&inputInteger<=puzzle.getCols())
-                {
+                if (inputInteger >= 0 && inputInteger <= puzzle.getCols()) {
 
-                    puzzle.generateMove(selectedRow, selectedCol,inputInteger);
+                    puzzle.generateMove(selectedRow, selectedCol, inputInteger);
                     repaint();
-                }else{
-                    JOptionPane.showMessageDialog(null,"You enter a out of range input","Wrong Input!",2);
+                } else {
+                    JOptionPane.showMessageDialog(null, "You enter a out of range input", "Wrong Input!", 2);
                 }
             }
         }
