@@ -521,10 +521,10 @@ public class KenKenPuzzle {
                 checklistY[x] = 0;
             }
             if (goal * vault <= size && goal * vault > 0) {
-                checklistY[goal + vault - 1] = 1;
+                checklistY[(goal * vault) - 1] = 1;
             }
-            if (vault / goal <= size && vault / goal > 0) {
-                checklistY[vault - goal - 1] = 1;
+            if (vault / goal <= size && vault / goal > 0&& vault % goal==0) {
+                checklistY[(vault / goal) - 1] = 1;
             }
             for (int x = 0; x < size; x++) {
                 if (checklistY[x] == 0) {
@@ -539,10 +539,10 @@ public class KenKenPuzzle {
                 checklistX[x] = 0;
             }
             if (goal * vault <= size && goal * vault > 0) {
-                checklistX[goal + vault - 1] = 1;
+                checklistX[(goal * vault) - 1] = 1;
             }
-            if (vault / goal <= size && vault / goal > 0) {
-                checklistX[vault - goal - 1] = 1;
+            if (vault / goal <= size && vault / goal > 0 && vault % goal==0) {
+                checklistX[(vault / goal) - 1] = 1;
             }
             for (int x = 0; x < size; x++) {
                 if (checklistX[x] == 0) {
