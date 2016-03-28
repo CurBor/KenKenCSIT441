@@ -23,18 +23,18 @@ public class KenKenDisplay extends JPanel {
     int letterOffSet_X = 10;
     int letterOffSetAnswer_Y = 85;
     int letterOffSetAnswer_X = 50;
-    boolean freezeboard=false;
+    boolean freezeboard = false;
 
     boolean lunchPuzzle = false;
     boolean repaintext = true;
     Font bigFont = new Font("Arial", 1, 25);
     Font answerFont = new Font("Arial", 1, 50);
-    Color boardColor=Color.black;
+    Color boardColor = Color.black;
 
     public void loadBoxObjects(BoxObject[] boxObjects) {
         objectList = boxObjects;
         lunchPuzzle = true;
-        boardColor=Color.black;
+        boardColor = Color.black;
         repaint();
     }
 
@@ -187,7 +187,7 @@ public class KenKenDisplay extends JPanel {
     }
 
     public void processClick(MouseEvent me) {
-        if (!lunchPuzzle||freezeboard) {
+        if (!lunchPuzzle || freezeboard) {
             return;
         }
         int x = me.getX();
@@ -212,11 +212,12 @@ public class KenKenDisplay extends JPanel {
                 }
                 if (inputInteger >= 0 && inputInteger <= puzzle.getCols()) {
 
-                    boolean win=puzzle.generateMove(selectedRow, selectedCol, inputInteger);
-                    if(win)
-                    {
+                    int win = puzzle.generateMove(selectedRow, selectedCol, inputInteger);
+                    if (win==3) {
                         win();
-                        JOptionPane.showMessageDialog(null,"You finish the game!", "Win!!",1);
+                        JOptionPane.showMessageDialog(null, "You finish the game!", "Win!!", 1);
+                    } else if(win==1) {
+                        JOptionPane.showMessageDialog(null, "Logic Error", "Error!!", 0);
                     }
                     repaint();
                 } else {
@@ -226,28 +227,25 @@ public class KenKenDisplay extends JPanel {
         }
     }
 
-    public void win()
-    {
-        boardColor=Color.green;
-        freezeboard=true;
+    public void win() {
+        boardColor = Color.green;
+        freezeboard = true;
 
     }
 
-    public boolean checkwin()
-    {
-        boolean win=true;
+    public boolean checkwin() {
+        boolean win = true;
         for (int row = 0; row < puzzle.getSize(); row++) {
             for (int col = 0; col < puzzle.getSize(); col++) {
-                if (puzzle.getAssignment(row,col)<=0)
-                    win=false;
+                if (puzzle.getAssignment(row, col) <= 0)
+                    win = false;
             }
         }
 
-        if (win)
-        {
+        if (win) {
             win();
             return true;
-        }else
+        } else
             return false;
     }
 }

@@ -199,7 +199,7 @@ public class KenKenPuzzle {
             if (domain[list.get(2 * x)][list.get(2 * x + 1)].size() == 1 && list.size() <= 2) {
                 goal = goal - domain[list.get(2 * x)][list.get(2 * x + 1)].get(0);
                 list.remove(2 * x);
-                list.remove(2 * x + 1);
+                list.remove(2 * x);
                 //System.out.println(list.size());
                 x--;
             }
@@ -273,7 +273,7 @@ public class KenKenPuzzle {
             if (domain[list.get(2 * x)][list.get(2 * x + 1)].size() == 1 && list.size() > 2) {
                 goal = goal / domain[list.get(2 * x)][list.get(2 * x + 1)].get(0);
                 list.remove(2 * x);
-                list.remove(2 * x + 1);
+                list.remove(2 * x);
                 x--;
             }
         }
@@ -798,7 +798,7 @@ public class KenKenPuzzle {
             if (domain[list.get(2 * x)][list.get(2 * x + 1)].size() == 1 && list.size() > 2) {
                 goal = goal / domain[list.get(2 * x)][list.get(2 * x + 1)].get(0);
                 list.remove(2 * x);
-                list.remove(2 * x + 1);
+                list.remove(2 * x);
                 x--;
             }
         }
@@ -1243,7 +1243,7 @@ public class KenKenPuzzle {
         }
     }
 
-    public boolean generateMove(int r, int c, int input) {
+    public int generateMove(int r, int c, int input) {
         int testAssignments[][] = new int[size][size];
         for (int x = 0; x < size; x++)
             for (int y = 0; y < size; y++)
@@ -1262,12 +1262,12 @@ public class KenKenPuzzle {
                        win=false;
 
             if(win)
-                return true;
+                return 3;
             else
-                return false;
+                return 2;
 
         } else {
-            return false;
+            return 1;
         }
     }
 
