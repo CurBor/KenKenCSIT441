@@ -41,7 +41,8 @@ public class KenKenDriver extends JFrame{
         JMenu menu = new JMenu("Menu");
         JMenuItem loadGame = new JMenuItem("load");
         JMenuItem nodeCon = new JMenuItem("run node consistency");
-        JMenuItem arcCon = new JMenuItem("run arc consistency");
+        JMenuItem arcCon = new JMenuItem("run arch consistency");
+        JMenuItem genCon = new JMenuItem("run general consistency");
         JMenuItem searchCon = new JMenuItem("run search");
 
         loadGame.addActionListener(new java.awt.event.ActionListener() {
@@ -68,12 +69,21 @@ public class KenKenDriver extends JFrame{
             }
         });
 
-        nodeCon.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent evt){
+        genCon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                puzzle.checkSingleDomain();
+                puzzle.generalConsistency();
+
+            }
+        });
+
+        nodeCon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 puzzle.nodeConsistency();
                 puzzle.checkSingleDomain();
             }
         });
+        
         searchCon.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(java.awt.event.ActionEvent evt){
                 puzzle.initSearch();
@@ -82,8 +92,10 @@ public class KenKenDriver extends JFrame{
 
         mBar.add(menu);
         menu.add(loadGame);
-        menu.add(arcCon);
         menu.add(nodeCon);
+        menu.add(arcCon);
+        menu.add(genCon);
+
         menu.add(searchCon);
 
         this.setJMenuBar(mBar);

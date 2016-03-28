@@ -8,6 +8,7 @@ public class KenKenPuzzle {
     private int size;
     private int rows = 4;
     private int cols = 4;
+    private boolean change = false; // for general consistency looping
 
     public void setObjectList(BoxObject[] objectList) {
         this.objectList = objectList;
@@ -123,6 +124,16 @@ public class KenKenPuzzle {
 
     }
 
+    public void generalConsistency() {
+        do {
+            change = false;
+            nodeConsistency();
+            notEqualsArchConsistency();
+            generalOperatorConisitency();
+            checkSingleDomain();
+        } while (change);
+    }
+
 
     /*
         this will go through all of the consistencies we have set up that are not equals statements.
@@ -138,6 +149,7 @@ public class KenKenPuzzle {
                     if (domain[x][y].size() == 1) {
                         if (domain[compBoxX][compBoxY].contains(domain[x][y].get(0))) {
                             domain[compBoxX][compBoxY].remove(new Integer(domain[x][y].get(0)));
+                            change = true;
                             //System.out.println("from box: " + compBoxX + compBoxY + " and compbox domain size" + domain[compBoxX][compBoxY].toString());
                         }
                     }
@@ -226,166 +238,6 @@ public class KenKenPuzzle {
             System.out.println("domain +:" + secondX + "," + secondY);
             System.out.println(domain[secondX][secondY].toString());
 
-        } else if (list.size() / 2 == 3) {
-            int fisrtX = list.get(0);
-            int fisrtY = list.get(1);
-            int secondX = list.get(2);
-            int secondY = list.get(3);
-            int thirdX = list.get(4);
-            int thirdY = list.get(5);
-
-            int checklist1[] = new int[size];
-            int checklist2[] = new int[size];
-            int checklist3[] = new int[size];
-            for (int x = 0; x < size; x++) {
-                checklist1[x] = 0;
-                checklist2[x] = 0;
-                checklist3[x] = 0;
-            }
-            for (int x = 1; x <= size; x++) {
-                for (int y = 1; y <= size; y++)
-                    for (int z = 1; z <= size; z++)
-                        if (goal == x + y + z) {
-                            if (checkdomain(fisrtX, fisrtY, x) && checkdomain(secondX, secondY, y) && checkdomain(thirdX, thirdY, z)) {
-                                checklist1[x - 1] = 1;
-                                checklist2[y - 1] = 1;
-                                checklist3[z - 1] = 1;
-                            }
-                        }
-            }
-
-
-            System.out.println("domain 3+:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain 3+:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
-            System.out.println("domain 3+:" + thirdX + "," + thirdY);
-            System.out.println(domain[thirdX][thirdY].toString());
-            for (int x = 0; x < size; x++) {
-                if (checklist1[x] == 0) {
-                    domain[fisrtX][fisrtY].remove(new Integer(x + 1));
-                }
-                if (checklist2[x] == 0) {
-                    domain[secondX][secondY].remove(new Integer(x + 1));
-                }
-                if (checklist3[x] == 0) {
-                    domain[thirdX][thirdY].remove(new Integer(x + 1));
-                }
-            }
-            System.out.println("domain 3+:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain 3+:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
-            System.out.println("domain 3+:" + thirdX + "," + thirdY);
-            System.out.println(domain[thirdX][thirdY].toString());
-
-        } else if (list.size() / 2 == 4) {
-            int firstX = list.get(0);
-            int firstY = list.get(1);
-            int secondX = list.get(2);
-            int secondY = list.get(3);
-            int thirdX = list.get(4);
-            int thirdY = list.get(5);
-            int fourthX = list.get(6);
-            int fourthY = list.get(7);
-
-            int checklist1[] = new int[size];
-            int checklist2[] = new int[size];
-            int checklist3[] = new int[size];
-            int checklist4[] = new int[size];
-            for (int x = 0; x < size; x++) {
-                checklist1[x] = 0;
-                checklist2[x] = 0;
-                checklist3[x] = 0;
-                checklist4[x] = 0;
-            }
-            for (int x = 1; x <= size; x++) {
-                for (int y = 1; y <= size; y++)
-                    for (int z = 1; z <= size; z++)
-                        for (int f = 1; f <= size; f++)
-                            if (goal == x + y + z + f) {
-                                if (checkdomain(firstX, firstY, x) && checkdomain(secondX, secondY, y) && checkdomain(thirdX, thirdY, z) && checkdomain(fourthX, firstY, f)) {
-                                    checklist1[x - 1] = 1;
-                                    checklist2[y - 1] = 1;
-                                    checklist3[z - 1] = 1;
-                                    checklist4[f - 1] = 1;
-                                }
-                            }
-            }
-
-            for (int x = 0; x < size; x++) {
-                if (checklist1[x] == 0) {
-                    domain[firstX][firstY].remove(new Integer(x + 1));
-                }
-                if (checklist2[x] == 0) {
-                    domain[secondX][secondY].remove(new Integer(x + 1));
-                }
-                if (checklist3[x] == 0) {
-                    domain[thirdX][thirdY].remove(new Integer(x + 1));
-                }
-                if (checklist4[x] == 0) {
-                    domain[fourthX][fourthY].remove(new Integer(x + 1));
-                }
-            }
-
-        } else if (list.size() / 2 == 5) {
-            int firstX = list.get(0);
-            int firstY = list.get(1);
-            int secondX = list.get(2);
-            int secondY = list.get(3);
-            int thirdX = list.get(4);
-            int thirdY = list.get(5);
-            int fourthX = list.get(6);
-            int fourthY = list.get(7);
-            int fivethX = list.get(8);
-            int fivethY = list.get(9);
-
-            int checklist1[] = new int[size];
-            int checklist2[] = new int[size];
-            int checklist3[] = new int[size];
-            int checklist4[] = new int[size];
-            int checklist5[] = new int[size];
-            for (int x = 0; x < size; x++) {
-                checklist1[x] = 0;
-                checklist2[x] = 0;
-                checklist3[x] = 0;
-                checklist4[x] = 0;
-                checklist5[x] = 0;
-            }
-            for (int x = 1; x <= size; x++) {
-                for (int y = 1; y <= size; y++)
-                    for (int z = 1; z <= size; z++)
-                        for (int f = 1; f <= size; f++)
-                            for (int g = 1; g <= size; g++)
-                                if (goal == x + y + z + f + g) {
-                                    if (checkdomain(firstX, firstY, x) && checkdomain(secondX, secondY, y) && checkdomain(thirdX, thirdY, z) && checkdomain(fourthX, firstY, f) && checkdomain(fivethX, fivethY, g)) {
-                                        checklist1[x - 1] = 1;
-                                        checklist2[y - 1] = 1;
-                                        checklist3[z - 1] = 1;
-                                        checklist4[f - 1] = 1;
-                                        checklist5[g - 1] = 1;
-                                    }
-                                }
-            }
-
-            for (int x = 0; x < size; x++) {
-                if (checklist1[x] == 0) {
-                    domain[firstX][firstY].remove(new Integer(x + 1));
-                }
-                if (checklist2[x] == 0) {
-                    domain[secondX][secondY].remove(new Integer(x + 1));
-                }
-                if (checklist3[x] == 0) {
-                    domain[thirdX][thirdY].remove(new Integer(x + 1));
-                }
-                if (checklist4[x] == 0) {
-                    domain[fourthX][fourthY].remove(new Integer(x + 1));
-                }
-                if (checklist5[x] == 0) {
-                    domain[fivethX][fivethY].remove(new Integer(x + 1));
-                }
-            }
-
         }
     }
 
@@ -433,11 +285,6 @@ public class KenKenPuzzle {
                     }
                 }
             }
-//
-//            System.out.println("domain +:"+fisrtX+","+fisrtY);
-//            System.out.println(domain[fisrtX][fisrtY].toString());
-//            System.out.println("domain +:"+secondX+","+secondY);
-//            System.out.println(domain[secondX][secondY].toString());
             for (int x = 0; x < size; x++) {
                 if (checklistX[x] == 0) {
                     domain[fisrtX][fisrtY].remove(new Integer(x + 1));
@@ -445,68 +292,8 @@ public class KenKenPuzzle {
                 if (checklistY[x] == 0) {
                     domain[secondX][secondY].remove(new Integer(x + 1));
                 }
-
             }
-//            System.out.println("domain +:"+fisrtX+","+fisrtY);
-//            System.out.println(domain[fisrtX][fisrtY].toString());
-//            System.out.println("domain +:"+secondX+","+secondY);
-//            System.out.println(domain[secondX][secondY].toString());
-
-        } else if (list.size() / 2 == 3) {
-            int fisrtX = list.get(0);
-            int fisrtY = list.get(1);
-            int secondX = list.get(2);
-            int secondY = list.get(3);
-            int thirdX = list.get(4);
-            int thirdY = list.get(5);
-
-            int checklist1[] = new int[size];
-            int checklist2[] = new int[size];
-            int checklist3[] = new int[size];
-            for (int x = 0; x < size; x++) {
-                checklist1[x] = 0;
-                checklist2[x] = 0;
-                checklist3[x] = 0;
-            }
-            for (int x = 1; x <= size; x++) {
-                for (int y = 1; y <= size; y++)
-                    for (int z = 1; z <= size; z++)
-                        if (goal == x * y * z) {
-                            if (checkdomain(fisrtX, fisrtY, x) && checkdomain(secondX, secondY, y) && checkdomain(thirdX, thirdY, z)) {
-                                checklist1[x - 1] = 1;
-                                checklist2[y - 1] = 1;
-                                checklist3[z - 1] = 1;
-                            }
-                        }
-            }
-
-
-            System.out.println("domain 3+:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain 3+:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
-            System.out.println("domain 3+:" + thirdX + "," + thirdY);
-            System.out.println(domain[thirdX][thirdY].toString());
-            for (int x = 0; x < size; x++) {
-                if (checklist1[x] == 0) {
-                    domain[fisrtX][fisrtY].remove(new Integer(x + 1));
-                }
-                if (checklist2[x] == 0) {
-                    domain[secondX][secondY].remove(new Integer(x + 1));
-                }
-                if (checklist3[x] == 0) {
-                    domain[thirdX][thirdY].remove(new Integer(x + 1));
-                }
-            }
-            System.out.println("domain 3+:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain 3+:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
-            System.out.println("domain 3+:" + thirdX + "," + thirdY);
-            System.out.println(domain[thirdX][thirdY].toString());
-
         }
-
     }
 
     private void archConisitencyDivide(int counter) {
@@ -533,7 +320,6 @@ public class KenKenPuzzle {
                     domain[secondX][secondY].remove(new Integer(x + 1));
                 }
             }
-
         } else if (domain[secondX][secondY].size() == 1) {
             int vault = domain[secondX][secondY].get(0);
             int checklistX[] = new int[size];
@@ -579,12 +365,17 @@ public class KenKenPuzzle {
             System.out.println(domain[secondX][secondY].toString());
             for (int x = 0; x < size; x++) {
                 if (checklistX[x] == 0) {
+                    if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
+                        change = true;
+                    }
                     domain[fisrtX][fisrtY].remove(new Integer(x + 1));
                 }
                 if (checklistY[x] == 0) {
+                    if(domain[secondX][secondY].contains(new Integer(x+1))){
+                        change = true;
+                    }
                     domain[secondX][secondY].remove(new Integer(x + 1));
                 }
-
             }
             System.out.println("domain:" + fisrtX + "," + fisrtY);
             System.out.println(domain[fisrtX][fisrtY].toString());
@@ -648,35 +439,598 @@ public class KenKenPuzzle {
                             checklistX[x - 1] = 1;
                             checklistY[y - 1] = 1;
                         }
-
                         if (checkdomain(secondX, secondY, x) && checkdomain(fisrtX, fisrtY, y)) {
                             checklistX[y - 1] = 1;
                             checklistY[x - 1] = 1;
                         }
+                    }
+                }
+            }
+            for (int x = 0; x < size; x++) {
+                if (checklistX[x] == 0) {
+                    if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[fisrtX][fisrtY].remove(new Integer(x + 1));
+
+                }
+                if (checklistY[x] == 0) {
+                    if(domain[secondX][secondY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[secondX][secondY].remove(new Integer(x + 1));
+                }
+            }
+        }
+    }
+
+    public void generalOperatorConisitency() {
+        for (int objectCounter = 0; objectCounter < objectList.length - 1; objectCounter++) {
+            if (objectList[objectCounter].getOpertor() == '+') {
+                generalConisitencyPlus(objectCounter);
+            } else if (objectList[objectCounter].getOpertor() == '-') {
+                archConisitencySubtract(objectCounter);
+            } else if (objectList[objectCounter].getOpertor() == '/') {
+                archConisitencyDivide(objectCounter);
+            } else if (objectList[objectCounter].getOpertor() == 'x' || objectList[objectCounter].getOpertor() == 'X') {
+                generalConisitencyMultiply(objectCounter);
+            }
+        }
+    }
+
+    private void generalConisitencyPlus(int counter) {
+        int goal = objectList[counter].getGoal();
+        List<Integer> list = new ArrayList<Integer>();
+        for (int x = 0; x < objectList[counter].getCubeList().size(); x++) {
+            list.add(objectList[counter].cubeList.get(x));
+        }
 
 
+        for (int x = 0; x < list.size() / 2; x++) {
+            if (domain[list.get(2 * x)][list.get(2 * x + 1)].size() == 1 && list.size() <= 2) {
+                goal = goal - domain[list.get(2 * x)][list.get(2 * x + 1)].get(0);
+                list.remove(2 * x);
+                list.remove(2 * x + 1);
+                System.out.println(list.size());
+                x--;
+            }
+        }
+        System.out.println(list.size() / 2);
+
+        if (list.size() / 2 == 1) {
+            if (goal > 0 && goal <= size && checkdomain(list.get(0), list.get(1), goal)) {
+                domain[list.get(0)][list.get(1)] = new ArrayList<Integer>();
+                domain[list.get(0)][list.get(1)].add(goal);
+            }
+        } else if (list.size() / 2 == 2) {
+            int fisrtX = list.get(0);
+            int fisrtY = list.get(1);
+            int secondX = list.get(2);
+            int secondY = list.get(3);
+
+            int checklistX[] = new int[size];
+            int checklistY[] = new int[size];
+            for (int x = 0; x < size; x++) {
+                checklistX[x] = 0;
+                checklistY[x] = 0;
+            }
+            for (int x = 1; x <= size; x++) {
+                for (int y = 1; y <= size; y++) {
+                    if (goal == x + y) {
+                        if (checkdomain(fisrtX, fisrtY, x) && checkdomain(secondX, secondY, y)) {
+                            checklistX[x - 1] = 1;
+                            checklistY[y - 1] = 1;
+                        }
                     }
                 }
             }
 
-            System.out.println("domain:" + fisrtX + "," + fisrtY);
+            System.out.println("domain +:" + fisrtX + "," + fisrtY);
             System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain:" + secondX + "," + secondY);
+            System.out.println("domain +:" + secondX + "," + secondY);
             System.out.println(domain[secondX][secondY].toString());
             for (int x = 0; x < size; x++) {
                 if (checklistX[x] == 0) {
+                    if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
+                        change = true;
+                    }
                     domain[fisrtX][fisrtY].remove(new Integer(x + 1));
                 }
                 if (checklistY[x] == 0) {
+                    if(domain[secondX][secondY].contains(new Integer(x+1))){
+                        change = true;
+                    }
                     domain[secondX][secondY].remove(new Integer(x + 1));
                 }
 
             }
-            System.out.println("domain:" + fisrtX + "," + fisrtY);
+            System.out.println("domain +:" + fisrtX + "," + fisrtY);
             System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain:" + secondX + "," + secondY);
+            System.out.println("domain +:" + secondX + "," + secondY);
             System.out.println(domain[secondX][secondY].toString());
+
+        } else if (list.size() / 2 == 3) {
+            int fisrtX = list.get(0);
+            int fisrtY = list.get(1);
+            int secondX = list.get(2);
+            int secondY = list.get(3);
+            int thirdX = list.get(4);
+            int thirdY = list.get(5);
+
+            int checklist1[] = new int[size];
+            int checklist2[] = new int[size];
+            int checklist3[] = new int[size];
+            for (int x = 0; x < size; x++) {
+                checklist1[x] = 0;
+                checklist2[x] = 0;
+                checklist3[x] = 0;
+            }
+            for (int x = 1; x <= size; x++) {
+                for (int y = 1; y <= size; y++)
+                    for (int z = 1; z <= size; z++)
+                        if (goal == x + y + z) {
+                            if (checkdomain(fisrtX, fisrtY, x) && checkdomain(secondX, secondY, y) && checkdomain(thirdX, thirdY, z)) {
+                                checklist1[x - 1] = 1;
+                                checklist2[y - 1] = 1;
+                                checklist3[z - 1] = 1;
+                            }
+                        }
+            }
+
+
+            System.out.println("domain 3+:" + fisrtX + "," + fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain 3+:" + secondX + "," + secondY);
+            System.out.println(domain[secondX][secondY].toString());
+            System.out.println("domain 3+:" + thirdX + "," + thirdY);
+            System.out.println(domain[thirdX][thirdY].toString());
+            for (int x = 0; x < size; x++) {
+                if (checklist1[x] == 0) {
+                    if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[fisrtX][fisrtY].remove(new Integer(x + 1));
+                }
+                if (checklist2[x] == 0) {
+                    if(domain[secondX][secondY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[secondX][secondY].remove(new Integer(x + 1));
+                }
+                if (checklist3[x] == 0) {
+                    if(domain[thirdX][thirdY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[thirdX][thirdY].remove(new Integer(x + 1));
+                }
+            }
+            System.out.println("domain 3+:" + fisrtX + "," + fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain 3+:" + secondX + "," + secondY);
+            System.out.println(domain[secondX][secondY].toString());
+            System.out.println("domain 3+:" + thirdX + "," + thirdY);
+            System.out.println(domain[thirdX][thirdY].toString());
+
+        } else if (list.size() / 2 == 4) {
+            int firstX = list.get(0);
+            int firstY = list.get(1);
+            int secondX = list.get(2);
+            int secondY = list.get(3);
+            int thirdX = list.get(4);
+            int thirdY = list.get(5);
+            int fourthX = list.get(6);
+            int fourthY = list.get(7);
+
+            int checklist1[] = new int[size];
+            int checklist2[] = new int[size];
+            int checklist3[] = new int[size];
+            int checklist4[] = new int[size];
+            for (int x = 0; x < size; x++) {
+                checklist1[x] = 0;
+                checklist2[x] = 0;
+                checklist3[x] = 0;
+                checklist4[x] = 0;
+            }
+            for (int x = 1; x <= size; x++) {
+                for (int y = 1; y <= size; y++)
+                    for (int z = 1; z <= size; z++)
+                        for (int f = 1; f <= size; f++)
+                            if (goal == x + y + z + f) {
+                                if (checkdomain(firstX, firstY, x) && checkdomain(secondX, secondY, y) && checkdomain(thirdX, thirdY, z) && checkdomain(fourthX, firstY, f)) {
+                                    checklist1[x - 1] = 1;
+                                    checklist2[y - 1] = 1;
+                                    checklist3[z - 1] = 1;
+                                    checklist4[f - 1] = 1;
+                                }
+                            }
+            }
+
+            for (int x = 0; x < size; x++) {
+                if (checklist1[x] == 0) {
+                    if(domain[firstX][firstY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[firstX][firstY].remove(new Integer(x + 1));
+                }
+                if (checklist2[x] == 0) {
+                    if(domain[secondX][secondY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[secondX][secondY].remove(new Integer(x + 1));
+                }
+                if (checklist3[x] == 0) {
+                    if(domain[thirdX][thirdY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[thirdX][thirdY].remove(new Integer(x + 1));
+                }
+                if (checklist4[x] == 0) {
+                    if(domain[fourthX][fourthY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[fourthX][fourthY].remove(new Integer(x + 1));
+                }
+            }
+
+        } else if (list.size() / 2 == 5) {
+            int firstX = list.get(0);
+            int firstY = list.get(1);
+            int secondX = list.get(2);
+            int secondY = list.get(3);
+            int thirdX = list.get(4);
+            int thirdY = list.get(5);
+            int fourthX = list.get(6);
+            int fourthY = list.get(7);
+            int fivethX = list.get(8);
+            int fivethY = list.get(9);
+
+            int checklist1[] = new int[size];
+            int checklist2[] = new int[size];
+            int checklist3[] = new int[size];
+            int checklist4[] = new int[size];
+            int checklist5[] = new int[size];
+            for (int x = 0; x < size; x++) {
+                checklist1[x] = 0;
+                checklist2[x] = 0;
+                checklist3[x] = 0;
+                checklist4[x] = 0;
+                checklist5[x] = 0;
+            }
+            for (int x = 1; x <= size; x++) {
+                for (int y = 1; y <= size; y++)
+                    for (int z = 1; z <= size; z++)
+                        for (int f = 1; f <= size; f++)
+                            for (int g = 1; g <= size; g++)
+                                if (goal == x + y + z + f + g) {
+                                    if (checkdomain(firstX, firstY, x) && checkdomain(secondX, secondY, y) && checkdomain(thirdX, thirdY, z) && checkdomain(fourthX, firstY, f) && checkdomain(fivethX, fivethY, g)) {
+                                        checklist1[x - 1] = 1;
+                                        checklist2[y - 1] = 1;
+                                        checklist3[z - 1] = 1;
+                                        checklist4[f - 1] = 1;
+                                        checklist5[g - 1] = 1;
+                                    }
+                                }
+            }
+
+            for (int x = 0; x < size; x++) {
+                if (checklist1[x] == 0) {
+                    if(domain[firstX][firstY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[firstX][firstY].remove(new Integer(x + 1));
+                }
+                if (checklist2[x] == 0) {
+                    if(domain[secondX][secondY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[secondX][secondY].remove(new Integer(x + 1));
+                }
+                if (checklist3[x] == 0) {
+                    if(domain[thirdX][thirdY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[thirdX][thirdY].remove(new Integer(x + 1));
+                }
+                if (checklist4[x] == 0) {
+                    if(domain[fourthX][fourthY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[fourthX][fourthY].remove(new Integer(x + 1));
+                }
+                if (checklist5[x] == 0) {
+                    if(domain[fivethX][fivethY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[fivethX][fivethY].remove(new Integer(x + 1));
+                }
+            }
+
         }
+    }
+
+    private void generalConisitencyMultiply(int counter) {
+        int goal = objectList[counter].getGoal();
+        List<Integer> list = new ArrayList<Integer>();
+        for (int x = 0; x < objectList[counter].getCubeList().size(); x++) {
+            list.add(objectList[counter].cubeList.get(x));
+        }
+
+
+        for (int x = 0; x < list.size() / 2; x++) {
+            if (domain[list.get(2 * x)][list.get(2 * x + 1)].size() == 1 && list.size() > 2) {
+                goal = goal / domain[list.get(2 * x)][list.get(2 * x + 1)].get(0);
+                list.remove(2 * x);
+                list.remove(2 * x + 1);
+                x--;
+            }
+        }
+
+        if (list.size() / 2 == 1) {
+            if (goal > 0 && goal <= size && checkdomain(list.get(0), list.get(1), goal)) {
+                domain[list.get(0)][list.get(1)] = new ArrayList<Integer>();
+                domain[list.get(0)][list.get(1)].add(goal);
+            }
+        } else if (list.size() / 2 == 2) {
+            int fisrtX = list.get(0);
+            int fisrtY = list.get(1);
+            int secondX = list.get(2);
+            int secondY = list.get(3);
+
+            int checklistX[] = new int[size];
+            int checklistY[] = new int[size];
+            for (int x = 0; x < size; x++) {
+                checklistX[x] = 0;
+                checklistY[x] = 0;
+            }
+            for (int x = 1; x <= size; x++) {
+                for (int y = 1; y <= size; y++) {
+                    if (goal == x * y) {
+                        if (checkdomain(fisrtX, fisrtY, x) && checkdomain(secondX, secondY, y)) {
+                            checklistX[x - 1] = 1;
+                            checklistY[y - 1] = 1;
+                        }
+                    }
+                }
+            }
+
+            for (int x = 0; x < size; x++) {
+                if (checklistX[x] == 0) {
+                    if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[fisrtX][fisrtY].remove(new Integer(x + 1));
+                }
+                if (checklistY[x] == 0) {
+                    if(domain[secondX][secondY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[secondX][secondY].remove(new Integer(x + 1));
+                }
+
+            }
+
+        } else if (list.size() / 2 == 3) {
+            int fisrtX = list.get(0);
+            int fisrtY = list.get(1);
+            int secondX = list.get(2);
+            int secondY = list.get(3);
+            int thirdX = list.get(4);
+            int thirdY = list.get(5);
+
+            int checklist1[] = new int[size];
+            int checklist2[] = new int[size];
+            int checklist3[] = new int[size];
+            for (int x = 0; x < size; x++) {
+                checklist1[x] = 0;
+                checklist2[x] = 0;
+                checklist3[x] = 0;
+            }
+            for (int x = 1; x <= size; x++) {
+                for (int y = 1; y <= size; y++)
+                    for (int z = 1; z <= size; z++)
+                        if (goal == x * y * z) {
+                            if (checkdomain(fisrtX, fisrtY, x) && checkdomain(secondX, secondY, y) && checkdomain(thirdX, thirdY, z)) {
+                                checklist1[x - 1] = 1;
+                                checklist2[y - 1] = 1;
+                                checklist3[z - 1] = 1;
+                            }
+                        }
+            }
+            for (int x = 0; x < size; x++) {
+                if (checklist1[x] == 0) {
+                    if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[fisrtX][fisrtY].remove(new Integer(x + 1));
+                }
+                if (checklist2[x] == 0) {
+                    if(domain[secondX][secondY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[secondX][secondY].remove(new Integer(x + 1));
+                }
+                if (checklist3[x] == 0) {
+                    if(domain[thirdX][thirdY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[thirdX][thirdY].remove(new Integer(x + 1));
+                }
+            }
+        }else if (list.size() / 2 == 4) {
+            int fisrtX = list.get(0);
+            int fisrtY = list.get(1);
+            int secondX = list.get(2);
+            int secondY = list.get(3);
+            int thirdX = list.get(4);
+            int thirdY = list.get(5);
+            int fourthX = list.get(6);
+            int fourthY = list.get(7);
+
+            int checklist1[] = new int[size];
+            int checklist2[] = new int[size];
+            int checklist3[] = new int[size];
+            int checklist4[] = new int[size];
+            for (int x = 0; x < size; x++) {
+                checklist1[x] = 0;
+                checklist2[x] = 0;
+                checklist3[x] = 0;
+                checklist4[x] = 0;
+            }
+            for (int x = 1; x <= size; x++) {
+                for (int y = 1; y <= size; y++)
+                    for (int z = 1; z <= size; z++)
+                        for (int f = 1; f <= size; f++){
+                            if (goal == x * y * z * f) {
+                                if (checkdomain(fisrtX, fisrtY, x) && checkdomain(secondX, secondY, y) && checkdomain(thirdX, thirdY, z) && checkdomain(fourthX, fourthY, f)) {
+                                    checklist1[x - 1] = 1;
+                                    checklist2[y - 1] = 1;
+                                    checklist3[z - 1] = 1;
+                                    checklist4[f - 1] = 1;
+                                }
+                            }
+                        }
+            }
+
+
+            System.out.println("domain 4+:" + fisrtX + "," + fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain 4+:" + secondX + "," + secondY);
+            System.out.println(domain[secondX][secondY].toString());
+            System.out.println("domain 4+:" + thirdX + "," + thirdY);
+            System.out.println(domain[thirdX][thirdY].toString());
+            System.out.println("domain 4+:" + fourthX + "," + fourthY);
+            System.out.println(domain[fourthX][fourthY].toString());
+            for (int x = 0; x < size; x++) {
+                if (checklist1[x] == 0) {
+                    if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[fisrtX][fisrtY].remove(new Integer(x + 1));
+                }
+                if (checklist2[x] == 0) {
+                    if(domain[secondX][secondY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[secondX][secondY].remove(new Integer(x + 1));
+                }
+                if (checklist3[x] == 0) {
+                    if(domain[thirdX][thirdY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[thirdX][thirdY].remove(new Integer(x + 1));
+                }
+                if (checklist4[x] == 0) {
+                    if(domain[fourthX][fourthY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[fourthX][fourthY].remove(new Integer(x + 1));
+                }
+            }
+            System.out.println("domain 4+:" + fisrtX + "," + fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain 4+:" + secondX + "," + secondY);
+            System.out.println(domain[secondX][secondY].toString());
+            System.out.println("domain 4+:" + thirdX + "," + thirdY);
+            System.out.println(domain[thirdX][thirdY].toString());
+            System.out.println("domain 4+:" + fourthX + "," + fourthY);
+            System.out.println(domain[fourthX][fourthY].toString());
+
+        }else if (list.size() / 2 == 5) {
+            int fisrtX = list.get(0);
+            int fisrtY = list.get(1);
+            int secondX = list.get(2);
+            int secondY = list.get(3);
+            int thirdX = list.get(4);
+            int thirdY = list.get(5);
+            int fourthX = list.get(6);
+            int fourthY = list.get(7);
+            int fifthX = list.get(8);
+            int fifthY = list.get(9);
+
+            int checklist1[] = new int[size];
+            int checklist2[] = new int[size];
+            int checklist3[] = new int[size];
+            int checklist4[] = new int[size];
+            int checklist5[] = new int[size];
+            for (int x = 0; x < size; x++) {
+                checklist1[x] = 0;
+                checklist2[x] = 0;
+                checklist3[x] = 0;
+                checklist4[x] = 0;
+                checklist5[x] = 0;
+            }
+            for (int x = 1; x <= size; x++) {
+                for (int y = 1; y <= size; y++)
+                    for (int z = 1; z <= size; z++)
+                        for (int f = 1; f <= size; f++){
+                            for (int g = 1; g <= size; g++) {
+                                if (goal == x * y * z * f * g) {
+                                    if (checkdomain(fisrtX, fisrtY, x) && checkdomain(secondX, secondY, y) && checkdomain(thirdX, thirdY, z) && checkdomain(fourthX, fourthY, f) && checkdomain(fifthX, fifthY, g)) {
+                                        checklist1[x - 1] = 1;
+                                        checklist2[y - 1] = 1;
+                                        checklist3[z - 1] = 1;
+                                        checklist4[f - 1] = 1;
+                                        checklist5[g - 1] = 1;
+                                    }
+                                }
+                            }
+                        }
+            }
+
+            System.out.println("domain 5+:" + fisrtX + "," + fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain 5+:" + secondX + "," + secondY);
+            System.out.println(domain[secondX][secondY].toString());
+            System.out.println("domain 5+:" + thirdX + "," + thirdY);
+            System.out.println(domain[thirdX][thirdY].toString());
+            System.out.println("domain 5+:" + fourthX + "," + fourthY);
+            System.out.println(domain[fourthX][fourthY].toString());
+            System.out.println("domain 5+:" + fifthX + "," + fifthY);
+            System.out.println(domain[fifthX][fifthY].toString());
+            for (int x = 0; x < size; x++) {
+                if (checklist1[x] == 0) {
+                    if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[fisrtX][fisrtY].remove(new Integer(x + 1));
+                }
+                if (checklist2[x] == 0) {
+                    if(domain[secondX][secondY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[secondX][secondY].remove(new Integer(x + 1));
+                }
+                if (checklist3[x] == 0) {
+                    if(domain[thirdX][thirdY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[thirdX][thirdY].remove(new Integer(x + 1));
+                }
+                if (checklist4[x] == 0) {
+                    if(domain[fourthX][fourthY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[fourthX][fourthY].remove(new Integer(x + 1));
+                }
+                if (checklist5[x] == 0) {
+                    if(domain[fifthX][fifthY].contains(new Integer(x+1))){
+                        change = true;
+                    }
+                    domain[fifthX][fifthY].remove(new Integer(x + 1));
+                }
+            }
+            System.out.println("domain 5+:" + fisrtX + "," + fisrtY);
+            System.out.println(domain[fisrtX][fisrtY].toString());
+            System.out.println("domain 5+:" + secondX + "," + secondY);
+            System.out.println(domain[secondX][secondY].toString());
+            System.out.println("domain 5+:" + thirdX + "," + thirdY);
+            System.out.println(domain[thirdX][thirdY].toString());
+            System.out.println("domain 5+:" + fourthX + "," + fourthY);
+            System.out.println(domain[fourthX][fourthY].toString());
+            System.out.println("domain 5+:" + fifthX + "," + fifthY);
+            System.out.println(domain[fifthX][fifthY].toString());
+        }
+
     }
 
     public boolean checkdomain(int x, int y, int check) {
