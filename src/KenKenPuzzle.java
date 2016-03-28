@@ -18,6 +18,8 @@ public class KenKenPuzzle {
     private List<Integer> constraint[][][];
     private int[][] assignments;
 
+    private int searchAssignmentsStore[][];
+
 
     public BoxObject[] getObjectList() {
         return objectList;
@@ -49,7 +51,7 @@ public class KenKenPuzzle {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 constraint[x][y][0] = setNotEqual(x, y);
-                System.out.println(constraint[x][y][0].toString());
+                //System.out.println(constraint[x][y][0].toString());
                 constraint[x][y][1] = setRelationshipConstaint(x, y);
                 //System.out.println(constraint[x][y][1].toString());
             }
@@ -172,11 +174,11 @@ public class KenKenPuzzle {
                 goal = goal - domain[list.get(2 * x)][list.get(2 * x + 1)].get(0);
                 list.remove(2 * x);
                 list.remove(2 * x + 1);
-                System.out.println(list.size());
+                //System.out.println(list.size());
                 x--;
             }
         }
-        System.out.println(list.size() / 2);
+        //System.out.println(list.size() / 2);
 
         if (list.size() / 2 == 1) {
             if (goal > 0 && goal <= size && checkdomain(list.get(0), list.get(1), goal)) {
@@ -523,7 +525,7 @@ public class KenKenPuzzle {
             if (goal * vault <= size && goal * vault > 0) {
                 checklistY[(goal * vault) - 1] = 1;
             }
-            if (vault / goal <= size && vault / goal > 0&& vault % goal==0) {
+            if (vault / goal <= size && vault / goal > 0 && vault % goal == 0) {
                 checklistY[(vault / goal) - 1] = 1;
             }
             for (int x = 0; x < size; x++) {
@@ -541,7 +543,7 @@ public class KenKenPuzzle {
             if (goal * vault <= size && goal * vault > 0) {
                 checklistX[(goal * vault) - 1] = 1;
             }
-            if (vault / goal <= size && vault / goal > 0 && vault % goal==0) {
+            if (vault / goal <= size && vault / goal > 0 && vault % goal == 0) {
                 checklistX[(vault / goal) - 1] = 1;
             }
             for (int x = 0; x < size; x++) {
@@ -686,93 +688,31 @@ public class KenKenPuzzle {
         return false;
     }
 
-    public boolean checkDomainPossibly(List<Integer> testDomain[][]) {
-
-        for (int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-                if (testDomain[x][y].size() == 1) {
-                    int checkNumber = testDomain[x][y].get(0);
-                    //check not equal
-                    for (int checkX = 0; checkX < size; checkX++) {
-                        if (testDomain[checkX][y].size() == 1 && testDomain[checkX][y].get(0) == checkNumber&&checkX!=x)
-                            return false;
-                    }
-                    for (int checkY = 0; checkY < size; checkY++) {
-                        if (testDomain[x][checkY].size() == 1 && testDomain[x][checkY].get(0) == checkNumber&&checkY!=y)
-                            return false;
-                    }
-                }
-            }
-        }
-
-        for (int checkBox = 0; checkBox < objectList.length; checkBox++) {
-            if (objectList[checkBox].getOpertor() != '=') {
-                boolean test = true;
-                for (int count = 0; count < objectList[checkBox].getCubeList().size() / 2; count++) {
-                    int cube[] = objectList[checkBox].indexOfCube(count);
-                    if (testDomain[cube[0]][cube[1]].size() != 1) ;
-                    test = false;
-                }
-                if (test) {
-                    if (objectList[checkBox].getOpertor() == '+') {
-                        int sum = 0;
-                        for (int count = 0; count < objectList[checkBox].getCubeList().size() / 2; count++) {
-                            int cube[] = objectList[checkBox].indexOfCube(count);
-                            sum+=testDomain[cube[0]][cube[1]].get(0);
-                        }
-                        if(sum!=objectList[checkBox].getGoal())
-                        {
-                            return false;
-                        }
-                    }
-                    if (objectList[checkBox].getOpertor() == '*') {
-                        int sum = 0;
-                        for (int count = 0; count < objectList[checkBox].getCubeList().size() / 2; count++) {
-                            int cube[] = objectList[checkBox].indexOfCube(count);
-                            sum*=testDomain[cube[0]][cube[1]].get(0);
-                        }
-                        if(sum!=objectList[checkBox].getGoal())
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-            } else {
-                int cube[] = objectList[checkBox].indexOfCube(0);
-                if (testDomain[cube[0]][cube[1]].get(0) != objectList[checkBox].getGoal()) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
     public boolean checkDomainPossibly(int testDomain[][]) {
 
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                if (testDomain[x][y]>0) {
+                if (testDomain[x][y] > 0) {
                     int checkNumber = testDomain[x][y];
                     //check not equal
                     for (int checkX = 0; checkX < size; checkX++) {
-                        if (testDomain[checkX][y] == checkNumber&&checkX!=x)
+                        if (testDomain[checkX][y] == checkNumber && checkX != x)
                             return false;
                     }
                     for (int checkY = 0; checkY < size; checkY++) {
-                        if (testDomain[x][checkY] == checkNumber&&checkY!=y)
+                        if (testDomain[x][checkY] == checkNumber && checkY != y)
                             return false;
                     }
                 }
             }
         }
 
-        for (int checkBox = 0; checkBox < objectList.length-1; checkBox++) {
+        for (int checkBox = 0; checkBox < objectList.length - 1; checkBox++) {
             if (objectList[checkBox].getOpertor() != '=') {
                 boolean test = true;
                 for (int count = 0; count < objectList[checkBox].getCubeList().size() / 2; count++) {
                     int cube[] = objectList[checkBox].indexOfCube(count);
-                    if (testDomain[cube[0]][cube[1]]<1 )
+                    if (testDomain[cube[0]][cube[1]] < 1)
                         test = false;
                 }
                 if (test) {
@@ -780,58 +720,49 @@ public class KenKenPuzzle {
                         int sum = 0;
                         for (int count = 0; count < objectList[checkBox].getCubeList().size() / 2; count++) {
                             int cube[] = objectList[checkBox].indexOfCube(count);
-                            sum+=testDomain[cube[0]][cube[1]];
+                            sum += testDomain[cube[0]][cube[1]];
                         }
-                        if(sum!=objectList[checkBox].getGoal())
-                        {
+                        if (sum != objectList[checkBox].getGoal()) {
                             return false;
                         }
-                    }else
-                    if (objectList[checkBox].getOpertor() == 'x') {
+                    } else if (objectList[checkBox].getOpertor() == 'x'||objectList[checkBox].getOpertor() == 'X') {
                         int sum = 1;
                         for (int count = 0; count < objectList[checkBox].getCubeList().size() / 2; count++) {
                             int cube[] = objectList[checkBox].indexOfCube(count);
-                            sum*=testDomain[cube[0]][cube[1]];
+                            sum *= testDomain[cube[0]][cube[1]];
                         }
-                        if(sum!=objectList[checkBox].getGoal())
-                        {
+                        if (sum != objectList[checkBox].getGoal()) {
                             return false;
                         }
-                    }else if(objectList[checkBox].getOpertor() == '-')
-                    {
+                    } else if (objectList[checkBox].getOpertor() == '-') {
                         int cube[] = objectList[checkBox].indexOfCube(0);
-                        int first=testDomain[cube[0]][cube[1]];
-                        cube= objectList[checkBox].indexOfCube(1);
-                        int second=testDomain[cube[0]][cube[1]];
+                        int first = testDomain[cube[0]][cube[1]];
+                        cube = objectList[checkBox].indexOfCube(1);
+                        int second = testDomain[cube[0]][cube[1]];
 
-                        if (second>first)
-                        {
-                            int store=first;
-                            first=second;
-                            second=store;
+                        if (second > first) {
+                            int store = first;
+                            first = second;
+                            second = store;
                         }
-                        if(first-second!=objectList[checkBox].getGoal())
-                        {
+                        if (first - second != objectList[checkBox].getGoal()) {
                             return false;
                         }
-                    }else if(objectList[checkBox].getOpertor() == '/')
-                    {
+                    } else if (objectList[checkBox].getOpertor() == '/') {
                         int cube[] = objectList[checkBox].indexOfCube(0);
-                        int first=testDomain[cube[0]][cube[1]];
-                        cube= objectList[checkBox].indexOfCube(1);
-                        int second=testDomain[cube[0]][cube[1]];
+                        int first = testDomain[cube[0]][cube[1]];
+                        cube = objectList[checkBox].indexOfCube(1);
+                        int second = testDomain[cube[0]][cube[1]];
 
-                        if (second>first)
-                        {
-                            int store=first;
-                            first=second;
-                            second=store;
+                        if (second > first) {
+                            int store = first;
+                            first = second;
+                            second = store;
                         }
-                        System.out.println(objectList[checkBox].getGoal());
-                        System.out.println(first/second);
-                        System.out.println(first%second);
-                        if(first/second!=objectList[checkBox].getGoal()||first%second>0)
-                        {
+//                        System.out.println(objectList[checkBox].getGoal());
+//                        System.out.println(first / second);
+//                        System.out.println(first % second);
+                        if (first / second != objectList[checkBox].getGoal() || first % second > 0) {
                             return false;
                         }
                     }
@@ -839,13 +770,14 @@ public class KenKenPuzzle {
 
             } else {
                 int cube[] = objectList[checkBox].indexOfCube(0);
-                if (testDomain[cube[0]][cube[1]] != objectList[checkBox].getGoal()&&testDomain[cube[0]][cube[1]]>0) {
+                if (testDomain[cube[0]][cube[1]] != objectList[checkBox].getGoal() && testDomain[cube[0]][cube[1]] > 0) {
                     return false;
                 }
             }
         }
         return true;
     }
+
     public void checkSingleDomain() {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
@@ -857,19 +789,51 @@ public class KenKenPuzzle {
         }
     }
 
-//    public void search(List<Integer> testDomain[][] )
-//    {
-//        for (int x = 0; x < size; x++) {
-//            for (int y = 0; y < size; y++) {
-//                if(testDomain[x][y].size()==1)
-//                {
-//                    int newInput=testDomain[x][y].get(0);
-//
-//                }
-//            }
-//        }
-//    }
+    public void initSearch() {
+        searchAssignmentsStore = new int[size][size];
+        int[][] testAssignments = new int[size][size];
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
+                testAssignments[row][col] = 0;
+            }
+        }
+        search(testAssignments, 0);
+        printAllSearchAssainment();
+    }
 
+    public void search(int testAssainment[][], int cubeLocate) {
+        if (cubeLocate == size * size) {
+            if (checkDomainPossibly(testAssainment)) {
+                for (int row = 0; row < size; row++) {
+                    for (int col = 0; col < size; col++) {
+                        searchAssignmentsStore[row][col] = testAssainment[row][col];
+                    }
+                }
+            }
+            return;
+        }
+
+        for (int x = 0; x < domain[cubeLocate / size][cubeLocate % size].size(); x++) {
+            testAssainment[cubeLocate / size][cubeLocate % size] = domain[cubeLocate / size][cubeLocate % size].get(x);
+            if (checkDomainPossibly(testAssainment)) {
+                search(testAssainment, cubeLocate + 1);
+                testAssainment[cubeLocate / size][cubeLocate % size] = 0;
+            } else {
+                testAssainment[cubeLocate / size][cubeLocate % size] = 0;
+            }
+        }
+    }
+
+    public void printAllSearchAssainment() {
+        for (int countx = 0; countx < size; countx++) {
+            for (int county = 0; county < size; county++) {
+                System.out.print(searchAssignmentsStore[countx][county] + " ");
+                assignments[countx][county]=searchAssignmentsStore[countx][county];
+            }
+            System.out.println();
+        }
+
+    }
 
     public KenKenPuzzle(int rs, int cs) {
         rows = rs;
@@ -888,17 +852,16 @@ public class KenKenPuzzle {
     }
 
     public void generateMove(int r, int c, int input) {
-        int testAssignments[][]=new int[size][size];
-        for (int x=0;x<size;x++)
-            for(int y=0;y<size;y++)
-                testAssignments[x][y]=assignments[x][y];
+        int testAssignments[][] = new int[size][size];
+        for (int x = 0; x < size; x++)
+            for (int y = 0; y < size; y++)
+                testAssignments[x][y] = assignments[x][y];
 
         testAssignments[r][c] = input;
-        if(checkDomainPossibly(testAssignments))
-        {
+        if (checkDomainPossibly(testAssignments)) {
             System.out.println(r + "  " + c);
             assignments[r][c] = input;
-        }else{
+        } else {
             System.out.println("logic error!");
         }
     }

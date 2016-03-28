@@ -42,6 +42,7 @@ public class KenKenDriver extends JFrame{
         JMenuItem loadGame = new JMenuItem("load");
         JMenuItem nodeCon = new JMenuItem("run node consistency");
         JMenuItem arcCon = new JMenuItem("run arc consistency");
+        JMenuItem searchCon = new JMenuItem("run search");
 
         loadGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,12 +74,17 @@ public class KenKenDriver extends JFrame{
                 puzzle.checkSingleDomain();
             }
         });
-
+        searchCon.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent evt){
+                puzzle.initSearch();
+            }
+        });
 
         mBar.add(menu);
         menu.add(loadGame);
         menu.add(arcCon);
         menu.add(nodeCon);
+        menu.add(searchCon);
 
         this.setJMenuBar(mBar);
     }
