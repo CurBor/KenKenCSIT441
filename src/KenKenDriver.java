@@ -70,7 +70,7 @@ public class KenKenDriver extends JFrame{
                 puzzle.checkSingleDomain();
                 puzzle.archConsistency();
                 if(display.checkwin()){
-                    JOptionPane.showMessageDialog(null,"AI finish the game!", "Arc result!!",1);
+                    JOptionPane.showMessageDialog(null,"Arch Consistency has finished the game!", "KenKen result!!",1);
                 }else {domainDialogBox("Arch");}
 
             }
@@ -81,7 +81,7 @@ public class KenKenDriver extends JFrame{
                 puzzle.checkSingleDomain();
                 puzzle.fullArchConsistency();
                 if(display.checkwin()){
-                    JOptionPane.showMessageDialog(null,"AI finish the game!", "Gen result!!",1);
+                    JOptionPane.showMessageDialog(null,"Full arch Consistency has finished the game!", "KenKen result!!",1);
                 }else {domainDialogBox("Full Arch");}
             }
         });
@@ -91,7 +91,7 @@ public class KenKenDriver extends JFrame{
                 puzzle.checkSingleDomain();
                 puzzle.generalConsistency();
                 if(display.checkwin()){
-                    JOptionPane.showMessageDialog(null,"AI finish the game!", "Gen result!!",1);
+                    JOptionPane.showMessageDialog(null,"General Consistency has finished the game!", "KenKen result!!",1);
                 }else{domainDialogBox("General");}
             }
         });
@@ -108,7 +108,7 @@ public class KenKenDriver extends JFrame{
             public void actionPerformed(java.awt.event.ActionEvent evt){
                 puzzle.initSearch();
                 display.win();
-                JOptionPane.showMessageDialog(null,"AI finish the game!", "Search result!!",1);
+                JOptionPane.showMessageDialog(null,"The AI has finish the game!", "Search result!!",1);
             }
         });
 
@@ -182,7 +182,7 @@ public class KenKenDriver extends JFrame{
             JScrollPane scrollPane = new JScrollPane(textArea);
             textArea.setLineWrap(true);
             textArea.setWrapStyleWord(true);
-            scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+            scrollPane.setPreferredSize(new Dimension(500, 500 ) );
             JOptionPane.showMessageDialog(null, scrollPane, "List of all current domains",
                     JOptionPane.YES_NO_OPTION);
         }

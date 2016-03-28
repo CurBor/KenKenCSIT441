@@ -48,6 +48,9 @@ public class KenKenDisplay extends JPanel {
             if (getOpertor == '/') {
                 getOpertor = '÷';
             }
+            if (getOpertor == '=') {
+                getOpertor = ' ';
+            }
             String in = "" + objectList[countObject].getGoal() + getOpertor;
             g.setFont(bigFont);
             g.drawString(in, start_X +
@@ -215,7 +218,7 @@ public class KenKenDisplay extends JPanel {
                     int win = puzzle.generateMove(selectedRow, selectedCol, inputInteger);
                     if (win==3) {
                         win();
-                        JOptionPane.showMessageDialog(null, "You finish the game!", "Win!!", 1);
+                        JOptionPane.showMessageDialog(null,"You have finished the game!", "Win!!",1);
                     } else if(win==1) {
                         JOptionPane.showMessageDialog(null, "Logic Error", "Error!!", 0);
                     }

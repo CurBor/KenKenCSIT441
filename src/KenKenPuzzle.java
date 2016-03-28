@@ -57,19 +57,13 @@ public class KenKenPuzzle {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 constraint[x][y][0] = setNotEqual(x, y);
-                //System.out.println(constraint[x][y][0].toString());
                 constraint[x][y][1] = setRelationshipConstaint(x, y);
-                //System.out.println(constraint[x][y][1].toString());
             }
         }
-
-
     }
-
 
     public List<Integer> setRelationshipConstaint(int row, int col) {
         List<Integer> returnList = new ArrayList();
-
 
         for (int x = 0; x < objectList.length - 1; x++) {
             for (int y = 0; y < objectList[x].getCubeList().size() / 2; y++) {
@@ -80,7 +74,6 @@ public class KenKenPuzzle {
                 }
             }
         }
-
         return null;
     }
 
@@ -91,7 +84,6 @@ public class KenKenPuzzle {
                 returnList.add(x);
                 returnList.add(col);
             }
-
         }
         for (int x = 0; x < size; x++) {
             if (x != col) {
@@ -99,7 +91,6 @@ public class KenKenPuzzle {
                 returnList.add(x);
             }
         }
-
         return returnList;
     }
 
@@ -111,9 +102,7 @@ public class KenKenPuzzle {
                     int goal = objectList[pointer].getGoal();
                     for (int z = 0; z < domain[x][y].size(); z++) {
                         if (domain[x][y].get(z) != goal) {
-
                             domain[x][y].remove(z);
-                            //System.out.println("box : "+ x + y +domain[x][y].toString() + " and number "+ z);
                             z--;
                         }
                     }
@@ -164,7 +153,6 @@ public class KenKenPuzzle {
                         if (domain[compBoxX][compBoxY].contains(domain[x][y].get(0))) {
                             domain[compBoxX][compBoxY].remove(new Integer(domain[x][y].get(0)));
                             change = true;
-                            //System.out.println("from box: " + compBoxX + compBoxY + " and compbox domain size" + domain[compBoxX][compBoxY].toString());
                         }
                     }
                 }
@@ -200,11 +188,9 @@ public class KenKenPuzzle {
                 goal = goal - domain[list.get(2 * x)][list.get(2 * x + 1)].get(0);
                 list.remove(2 * x);
                 list.remove(2 * x);
-                //System.out.println(list.size());
                 x--;
             }
         }
-        //System.out.println(list.size() / 2);
 
         if (list.size() / 2 == 1) {
             if (goal > 0 && goal <= size && checkdomain(list.get(0), list.get(1), goal)) {
@@ -234,10 +220,6 @@ public class KenKenPuzzle {
                 }
             }
 
-            System.out.println("domain +:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain +:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
             for (int x = 0; x < size; x++) {
                 if (checklistX[x] == 0) {
                     if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
@@ -253,11 +235,6 @@ public class KenKenPuzzle {
                 }
 
             }
-            System.out.println("domain +:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain +:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
-
         }
     }
 
@@ -391,10 +368,6 @@ public class KenKenPuzzle {
                 }
             }
 
-            System.out.println("domain:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
             for (int x = 0; x < size; x++) {
                 if (checklistX[x] == 0) {
                     if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
@@ -409,10 +382,6 @@ public class KenKenPuzzle {
                     domain[secondX][secondY].remove(new Integer(x + 1));
                 }
             }
-            System.out.println("domain:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
         }
     }
 
@@ -529,12 +498,9 @@ public class KenKenPuzzle {
                 goal = goal - domain[list.get(2 * x)][list.get(2 * x + 1)].get(0);
                 list.remove(2 * x);
                 list.remove(2 * x + 1);
-                System.out.println(list.size());
                 x--;
             }
         }
-        System.out.println(list.size() / 2);
-
         if (list.size() / 2 == 1) {
             if (goal > 0 && goal <= size && checkdomain(list.get(0), list.get(1), goal)) {
                 domain[list.get(0)][list.get(1)] = new ArrayList<Integer>();
@@ -562,11 +528,6 @@ public class KenKenPuzzle {
                     }
                 }
             }
-
-            System.out.println("domain +:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain +:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
             for (int x = 0; x < size; x++) {
                 if (checklistX[x] == 0) {
                     if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
@@ -582,11 +543,6 @@ public class KenKenPuzzle {
                 }
 
             }
-            System.out.println("domain +:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain +:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
-
         } else if (list.size() / 2 == 3) {
             int fisrtX = list.get(0);
             int fisrtY = list.get(1);
@@ -614,14 +570,6 @@ public class KenKenPuzzle {
                             }
                         }
             }
-
-
-            System.out.println("domain 3+:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain 3+:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
-            System.out.println("domain 3+:" + thirdX + "," + thirdY);
-            System.out.println(domain[thirdX][thirdY].toString());
             for (int x = 0; x < size; x++) {
                 if (checklist1[x] == 0) {
                     if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
@@ -642,13 +590,6 @@ public class KenKenPuzzle {
                     domain[thirdX][thirdY].remove(new Integer(x + 1));
                 }
             }
-            System.out.println("domain 3+:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain 3+:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
-            System.out.println("domain 3+:" + thirdX + "," + thirdY);
-            System.out.println(domain[thirdX][thirdY].toString());
-
         } else if (list.size() / 2 == 4) {
             int firstX = list.get(0);
             int firstY = list.get(1);
@@ -928,16 +869,6 @@ public class KenKenPuzzle {
                             }
                         }
             }
-
-
-            System.out.println("domain 4+:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain 4+:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
-            System.out.println("domain 4+:" + thirdX + "," + thirdY);
-            System.out.println(domain[thirdX][thirdY].toString());
-            System.out.println("domain 4+:" + fourthX + "," + fourthY);
-            System.out.println(domain[fourthX][fourthY].toString());
             for (int x = 0; x < size; x++) {
                 if (checklist1[x] == 0) {
                     if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
@@ -964,15 +895,6 @@ public class KenKenPuzzle {
                     domain[fourthX][fourthY].remove(new Integer(x + 1));
                 }
             }
-            System.out.println("domain 4+:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain 4+:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
-            System.out.println("domain 4+:" + thirdX + "," + thirdY);
-            System.out.println(domain[thirdX][thirdY].toString());
-            System.out.println("domain 4+:" + fourthX + "," + fourthY);
-            System.out.println(domain[fourthX][fourthY].toString());
-
         }else if (list.size() / 2 == 5) {
             int fisrtX = list.get(0);
             int fisrtY = list.get(1);
@@ -1014,17 +936,6 @@ public class KenKenPuzzle {
                             }
                         }
             }
-
-            System.out.println("domain 5+:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain 5+:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
-            System.out.println("domain 5+:" + thirdX + "," + thirdY);
-            System.out.println(domain[thirdX][thirdY].toString());
-            System.out.println("domain 5+:" + fourthX + "," + fourthY);
-            System.out.println(domain[fourthX][fourthY].toString());
-            System.out.println("domain 5+:" + fifthX + "," + fifthY);
-            System.out.println(domain[fifthX][fifthY].toString());
             for (int x = 0; x < size; x++) {
                 if (checklist1[x] == 0) {
                     if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
@@ -1057,18 +968,7 @@ public class KenKenPuzzle {
                     domain[fifthX][fifthY].remove(new Integer(x + 1));
                 }
             }
-            System.out.println("domain 5+:" + fisrtX + "," + fisrtY);
-            System.out.println(domain[fisrtX][fisrtY].toString());
-            System.out.println("domain 5+:" + secondX + "," + secondY);
-            System.out.println(domain[secondX][secondY].toString());
-            System.out.println("domain 5+:" + thirdX + "," + thirdY);
-            System.out.println(domain[thirdX][thirdY].toString());
-            System.out.println("domain 5+:" + fourthX + "," + fourthY);
-            System.out.println(domain[fourthX][fourthY].toString());
-            System.out.println("domain 5+:" + fifthX + "," + fifthY);
-            System.out.println(domain[fifthX][fifthY].toString());
         }
-
     }
 
     public boolean checkdomain(int x, int y, int check) {
@@ -1151,9 +1051,6 @@ public class KenKenPuzzle {
                             first = second;
                             second = store;
                         }
-//                        System.out.println(objectList[checkBox].getGoal());
-//                        System.out.println(first / second);
-//                        System.out.println(first % second);
                         if (first / second != objectList[checkBox].getGoal() || first % second > 0) {
                             return false;
                         }
@@ -1219,10 +1116,8 @@ public class KenKenPuzzle {
     public void printAllSearchAssainment() {
         for (int countx = 0; countx < size; countx++) {
             for (int county = 0; county < size; county++) {
-                System.out.print(searchAssignmentsStore[countx][county] + " ");
                 assignments[countx][county]=searchAssignmentsStore[countx][county];
             }
-            System.out.println();
         }
 
     }
@@ -1252,7 +1147,6 @@ public class KenKenPuzzle {
         testAssignments[r][c] = input;
 
         if (checkDomainPossibly(testAssignments)) {
-            System.out.println(r + "  " + c);
             assignments[r][c] = input;
 
             boolean win=true;
