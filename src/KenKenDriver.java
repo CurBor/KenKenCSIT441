@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -17,6 +18,7 @@ public class KenKenDriver extends JFrame{
     KenKenPuzzle puzzle;
     KenKenDisplay display;
     BoxObject initialFileList[];
+    boolean forzenBoard=true;
 
     public KenKenDriver()
     {
@@ -50,10 +52,7 @@ public class KenKenDriver extends JFrame{
                 try {
 
                     changeSize();
-                    puzzle.setObjectList(initialFileList);
-                    puzzle.SetDomain(size);
-                    puzzle.loadBoxObjects(initialFileList);
-                    display.loadBoxObjects(initialFileList);
+
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -65,6 +64,9 @@ public class KenKenDriver extends JFrame{
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 puzzle.checkSingleDomain();
                 puzzle.archConsistency();
+                if(display.checkwin()){
+                    JOptionPane.showMessageDialog(null,"AI finish the game!", "Arc result!!",1);
+                }
 
             }
         });
@@ -73,6 +75,9 @@ public class KenKenDriver extends JFrame{
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 puzzle.checkSingleDomain();
                 puzzle.generalConsistency();
+                if(display.checkwin()){
+                    JOptionPane.showMessageDialog(null,"AI finish the game!", "Gen result!!",1);
+                }
 
             }
         });
@@ -87,6 +92,8 @@ public class KenKenDriver extends JFrame{
         searchCon.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(java.awt.event.ActionEvent evt){
                 puzzle.initSearch();
+                display.win();
+                JOptionPane.showMessageDialog(null,"AI finish the game!", "Search result!!",1);
             }
         });
 
@@ -95,10 +102,23 @@ public class KenKenDriver extends JFrame{
         menu.add(nodeCon);
         menu.add(arcCon);
         menu.add(genCon);
-
         menu.add(searchCon);
 
         this.setJMenuBar(mBar);
+
+        if(forzenBoard)
+        {
+            nodeCon.setEnabled(false);
+            arcCon.setEnabled(false);
+            genCon.setEnabled(false);
+            searchCon.setEnabled(false);
+        }else{
+            nodeCon.setEnabled(true);
+            arcCon.setEnabled(true);
+            genCon.setEnabled(true);
+            searchCon.setEnabled(true);
+        }
+
     }
 
     public void changeSize() throws FileNotFoundException {
@@ -109,17 +129,28 @@ public class KenKenDriver extends JFrame{
         fc.setCurrentDirectory(new File("../KenKenCSIT441"));
         fc.showOpenDialog(new JFrame());
 
-        File x=  fc.getSelectedFile();
-        readFile=new ReadFile(x);
+        if(fc.getSelectedFile()!=null)
+        {
+            forzenBoard=false;
+            File x=  fc.getSelectedFile();
+            readFile=new ReadFile(x);
 
-        this.remove(display);
-        initialFileList =readFile.getList();
-        size = readFile.getSize();
-        puzzle = new KenKenPuzzle(size,size);
-        display = new KenKenDisplay(puzzle);
-        display.loadBoxObjects(initialFileList);
-        this.add(display);
-        repaint();
+            this.remove(display);
+            initialFileList =readFile.getList();
+            size = readFile.getSize();
+            puzzle = new KenKenPuzzle(size,size);
+            display = new KenKenDisplay(puzzle);
+            display.loadBoxObjects(initialFileList);
+            this.add(display);
+            initMenu();
+            repaint();
+            puzzle.setObjectList(initialFileList);
+            puzzle.SetDomain(size);
+            puzzle.loadBoxObjects(initialFileList);
+            display.loadBoxObjects(initialFileList);
+        }
+
+
 
     }
 

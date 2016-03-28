@@ -5,6 +5,7 @@ import java.util.List;
  * Created by zachw on 2/25/16.
  */
 public class KenKenPuzzle {
+
     private int size;
     private int rows = 4;
     private int cols = 4;
@@ -1205,18 +1206,31 @@ public class KenKenPuzzle {
         }
     }
 
-    public void generateMove(int r, int c, int input) {
+    public boolean generateMove(int r, int c, int input) {
         int testAssignments[][] = new int[size][size];
         for (int x = 0; x < size; x++)
             for (int y = 0; y < size; y++)
                 testAssignments[x][y] = assignments[x][y];
 
         testAssignments[r][c] = input;
+
         if (checkDomainPossibly(testAssignments)) {
             System.out.println(r + "  " + c);
             assignments[r][c] = input;
+
+            boolean win=true;
+            for (int row = 0; row < size; row++)
+                for (int col = 0; col < size; col++)
+                   if(assignments[row][col]<=0)
+                       win=false;
+
+            if(win)
+                return true;
+            else
+                return false;
+
         } else {
-            System.out.println("logic error!");
+            return false;
         }
     }
 
@@ -1248,4 +1262,8 @@ public class KenKenPuzzle {
     public void setAssignments(int[][] assignments) {
         this.assignments = assignments;
     }
+    public int getSize() {
+        return size;
+    }
+
 }

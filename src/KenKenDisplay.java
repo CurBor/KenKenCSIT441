@@ -16,15 +16,18 @@ public class KenKenDisplay extends JPanel {
     int letterOffSet_X = 10;
     int letterOffSetAnswer_Y = 85;
     int letterOffSetAnswer_X = 50;
+    boolean freezeboard=false;
 
     boolean lunchPuzzle = false;
     boolean repaintext = true;
     Font bigFont = new Font("Arial", 1, 25);
     Font answerFont = new Font("Arial", 1, 50);
+    Color boardColor=Color.black;
 
     public void loadBoxObjects(BoxObject[] boxObjects) {
         objectList = boxObjects;
         lunchPuzzle = true;
+        boardColor=Color.black;
         repaint();
     }
 
@@ -84,6 +87,7 @@ public class KenKenDisplay extends JPanel {
         }
 
         int[][] assignments = puzzle.getAssignments();
+        g.setColor(boardColor);
         g.setFont(answerFont);
         for (int x = 0; x < puzzle.getCols(); x++) {
             for (int y = 0; y < puzzle.getCols(); y++) {
@@ -176,7 +180,7 @@ public class KenKenDisplay extends JPanel {
     }
 
     public void processClick(MouseEvent me) {
-        if (!lunchPuzzle) {
+        if (!lunchPuzzle||freezeboard) {
             return;
         }
         int x = me.getX();
@@ -201,7 +205,12 @@ public class KenKenDisplay extends JPanel {
                 }
                 if (inputInteger >= 0 && inputInteger <= puzzle.getCols()) {
 
-                    puzzle.generateMove(selectedRow, selectedCol, inputInteger);
+                    boolean win=puzzle.generateMove(selectedRow, selectedCol, inputInteger);
+                    if(win)
+                    {
+                        win();
+                        JOptionPane.showMessageDialog(null,"You finish the game!", "Win!!",1);
+                    }
                     repaint();
                 } else {
                     JOptionPane.showMessageDialog(null, "You enter a out of range input", "Wrong Input!", 2);
@@ -210,4 +219,28 @@ public class KenKenDisplay extends JPanel {
         }
     }
 
+    public void win()
+    {
+        boardColor=Color.green;
+        freezeboard=true;
+
+    }
+
+    public boolean checkwin()
+    {
+        boolean win=true;
+        for (int row = 0; row < puzzle.getSize(); row++) {
+            for (int col = 0; col < puzzle.getSize(); col++) {
+                if (puzzle.getAssignment(row,col)<=0)
+                    win=false;
+            }
+        }
+
+        if (win)
+        {
+            win();
+            return true;
+        }else
+            return false;
+    }
 }
