@@ -3,6 +3,13 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * KenKen Puzzle
+ * Created by Zach Widger and Wei Zhou
+ * For CSIT 441 Artificial Intelligence
+ * Finished on 3/28/2016
+ */
+
 public class KenKenDisplay extends JPanel {
 
     KenKenPuzzle puzzle;
@@ -192,15 +199,15 @@ public class KenKenDisplay extends JPanel {
             int selectedCol = (x - start_X - divWid) / (cellSize + divWid);
 
             if (selectedRow < puzzle.getRows() && selectedCol < puzzle.getCols()) {
-                String input = JOptionPane.showInputDialog(null, "Please enter what do you want to fill in (" + (selectedRow + 1) + " , " + (selectedCol + 1) + ")\n" +
-                        "In the range 1-" + puzzle.getCols() + ".\n0 for clean.", "Input Dialog", 1);
+                String input = JOptionPane.showInputDialog(null, "Please enter the number you want to fill in (" + (selectedRow + 1) + " , " + (selectedCol + 1) + ")\n" +
+                        "In the range 1-" + puzzle.getCols() + ".\nenter 0 to clear the field.", "Input Dialog", 1);
                 int inputInteger = 0;
 
                 try {
                     inputInteger = Integer.parseInt(input);
                 } catch (java.lang.NumberFormatException e) {
                     if (input != null)
-                        JOptionPane.showMessageDialog(null, "You enter a invalid input", "Wrong Input!", 2);
+                        JOptionPane.showMessageDialog(null, "You have entered an invalid input", "Wrong Input!", 2);
                     return;
                 }
                 if (inputInteger >= 0 && inputInteger <= puzzle.getCols()) {
@@ -213,7 +220,7 @@ public class KenKenDisplay extends JPanel {
                     }
                     repaint();
                 } else {
-                    JOptionPane.showMessageDialog(null, "You enter a out of range input", "Wrong Input!", 2);
+                    JOptionPane.showMessageDialog(null, "You have entered an out of range input", "Wrong Input!", 2);
                 }
             }
         }

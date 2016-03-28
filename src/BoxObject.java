@@ -2,8 +2,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Wei Zhou on 2016/3/11.
+ * KenKen Puzzle
+ * Created by Zach Widger and Wei Zhou
+ * For CSIT 441 Artificial Intelligence
+ * Finished on 3/28/2016
  */
+
 public class BoxObject {
 
 

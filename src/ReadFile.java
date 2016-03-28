@@ -3,8 +3,12 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- * Created by Wei Zhou on 2016/3/11.
+ * KenKen Puzzle
+ * Created by Zach Widger and Wei Zhou
+ * For CSIT 441 Artificial Intelligence
+ * Finished on 3/28/2016
  */
+
 public class ReadFile {
 
     public int getSize() {
@@ -53,12 +57,5 @@ public class ReadFile {
             list[count] = questions;
             count++;
         }
-//        int x=2;
-//        System.out.println(list[x].getGoal());
-//        System.out.println(list[x].getOpertor());
-//
-//        System.out.println(list[x].getCubeStringList());
     }
-
-
 }

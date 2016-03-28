@@ -2,8 +2,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by zachw on 2/25/16.
+ * KenKen Puzzle
+ * Created by Zach Widger and Wei Zhou
+ * For CSIT 441 Artificial Intelligence
+ * Finished on 3/28/2016
  */
+
 public class KenKenPuzzle {
 
     private int size;
@@ -125,6 +129,15 @@ public class KenKenPuzzle {
 
     }
 
+    public void fullArchConsistency(){
+        do {
+            change = false;
+            notEqualsArchConsistency();
+            operatorArchConisitency();
+            checkSingleDomain();
+        } while (change);
+    }
+
     public void generalConsistency() {
         do {
             change = false;
@@ -227,9 +240,15 @@ public class KenKenPuzzle {
             System.out.println(domain[secondX][secondY].toString());
             for (int x = 0; x < size; x++) {
                 if (checklistX[x] == 0) {
+                    if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
+                        change = true;
+                    }
                     domain[fisrtX][fisrtY].remove(new Integer(x + 1));
                 }
                 if (checklistY[x] == 0) {
+                    if(domain[secondX][secondY].contains(new Integer(x+1))){
+                        change = true;
+                    }
                     domain[secondX][secondY].remove(new Integer(x + 1));
                 }
 
@@ -288,9 +307,15 @@ public class KenKenPuzzle {
             }
             for (int x = 0; x < size; x++) {
                 if (checklistX[x] == 0) {
+                    if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
+                        change = true;
+                    }
                     domain[fisrtX][fisrtY].remove(new Integer(x + 1));
                 }
                 if (checklistY[x] == 0) {
+                    if(domain[secondX][secondY].contains(new Integer(x+1))){
+                        change = true;
+                    }
                     domain[secondX][secondY].remove(new Integer(x + 1));
                 }
             }
@@ -318,6 +343,9 @@ public class KenKenPuzzle {
             }
             for (int x = 0; x < size; x++) {
                 if (checklistY[x] == 0) {
+                    if(domain[secondX][secondY].contains(new Integer(x+1))){
+                        change = true;
+                    }
                     domain[secondX][secondY].remove(new Integer(x + 1));
                 }
             }
@@ -335,6 +363,9 @@ public class KenKenPuzzle {
             }
             for (int x = 0; x < size; x++) {
                 if (checklistX[x] == 0) {
+                    if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
+                        change = true;
+                    }
                     domain[fisrtX][fisrtY].remove(new Integer(x + 1));
                 }
             }
@@ -405,6 +436,9 @@ public class KenKenPuzzle {
             }
             for (int x = 0; x < size; x++) {
                 if (checklistY[x] == 0) {
+                    if(domain[secondX][secondY].contains(new Integer(x+1))){
+                        change = true;
+                    }
                     domain[secondX][secondY].remove(new Integer(x + 1));
                 }
             }
@@ -423,6 +457,9 @@ public class KenKenPuzzle {
             }
             for (int x = 0; x < size; x++) {
                 if (checklistX[x] == 0) {
+                    if(domain[fisrtX][fisrtY].contains(new Integer(x+1))){
+                        change = true;
+                    }
                     domain[fisrtX][fisrtY].remove(new Integer(x + 1));
                 }
             }
@@ -1261,6 +1298,16 @@ public class KenKenPuzzle {
 
     public void setAssignments(int[][] assignments) {
         this.assignments = assignments;
+    }
+
+    public String domainsToString() {
+        String stDomains = "";
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                stDomains += "The domain for box " + x + " " + y + " Contains: " +domain[x][y].toString() + "\n";
+            }
+        }
+        return stDomains;
     }
     public int getSize() {
         return size;

@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * Created by zachw on 2/25/16.
+ * KenKen Puzzle
+ * Created by Zach Widger and Wei Zhou
+ * For CSIT 441 Artificial Intelligence
+ * Finished on 3/28/2016
  */
+
 public class KenKenDriver extends JFrame{
 
     int win_wid = 600;
@@ -44,7 +48,8 @@ public class KenKenDriver extends JFrame{
         JMenuItem loadGame = new JMenuItem("load");
         JMenuItem nodeCon = new JMenuItem("run node consistency");
         JMenuItem arcCon = new JMenuItem("run arch consistency");
-        JMenuItem genCon = new JMenuItem("run general consistency");
+        JMenuItem fullArcCon = new JMenuItem("run full arch consistency");
+        JMenuItem genCon = new JMenuItem("run full general consistency");
         JMenuItem searchCon = new JMenuItem("run search");
 
         loadGame.addActionListener(new java.awt.event.ActionListener() {
@@ -66,8 +71,18 @@ public class KenKenDriver extends JFrame{
                 puzzle.archConsistency();
                 if(display.checkwin()){
                     JOptionPane.showMessageDialog(null,"AI finish the game!", "Arc result!!",1);
-                }
+                }else {domainDialogBox("Arch");}
 
+            }
+        });
+
+        fullArcCon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                puzzle.checkSingleDomain();
+                puzzle.fullArchConsistency();
+                if(display.checkwin()){
+                    JOptionPane.showMessageDialog(null,"AI finish the game!", "Gen result!!",1);
+                }else {domainDialogBox("Full Arch");}
             }
         });
 
@@ -77,8 +92,7 @@ public class KenKenDriver extends JFrame{
                 puzzle.generalConsistency();
                 if(display.checkwin()){
                     JOptionPane.showMessageDialog(null,"AI finish the game!", "Gen result!!",1);
-                }
-
+                }else{domainDialogBox("General");}
             }
         });
 
@@ -86,6 +100,7 @@ public class KenKenDriver extends JFrame{
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 puzzle.nodeConsistency();
                 puzzle.checkSingleDomain();
+                domainDialogBox("Node");
             }
         });
         
@@ -101,6 +116,7 @@ public class KenKenDriver extends JFrame{
         menu.add(loadGame);
         menu.add(nodeCon);
         menu.add(arcCon);
+        menu.add(fullArcCon);
         menu.add(genCon);
         menu.add(searchCon);
 
@@ -111,11 +127,13 @@ public class KenKenDriver extends JFrame{
             nodeCon.setEnabled(false);
             arcCon.setEnabled(false);
             genCon.setEnabled(false);
+            fullArcCon.setEnabled(false);
             searchCon.setEnabled(false);
         }else{
             nodeCon.setEnabled(true);
             arcCon.setEnabled(true);
             genCon.setEnabled(true);
+            fullArcCon.setEnabled(true);
             searchCon.setEnabled(true);
         }
 
@@ -152,6 +170,22 @@ public class KenKenDriver extends JFrame{
 
 
 
+    }
+
+    public void domainDialogBox(String type){
+        String domains = "";
+        domains = puzzle.domainsToString();
+        int reply = JOptionPane.showConfirmDialog(null, type + " Consistency has finished running. \n" +
+                "Would you like to see the domains?", "General Consistency", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION){
+            JTextArea textArea = new JTextArea(domains);
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+            JOptionPane.showMessageDialog(null, scrollPane, "List of all current domains",
+                    JOptionPane.YES_NO_OPTION);
+        }
     }
 
     public static void main(String[] args){
