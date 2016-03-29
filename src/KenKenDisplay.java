@@ -14,20 +14,20 @@ public class KenKenDisplay extends JPanel {
 
     KenKenPuzzle puzzle;
     private BoxObject objectList[];
-    int cellSize = 85;
+    int cellSize = 75;
     int divWid = 7;
     int thinkWid = 3;
     int start_X = 50;
     int start_y = 50;
     int letterOffSet_Y = 20;
     int letterOffSet_X = 10;
-    int letterOffSetAnswer_Y = 85;
+    int letterOffSetAnswer_Y = 70;
     int letterOffSetAnswer_X = 50;
     boolean freezeboard = false;
 
     boolean lunchPuzzle = false;
     Font bigFont = new Font("Arial", 1, 25);
-    Font answerFont = new Font("Arial", 1, 50);
+    Font answerFont = new Font("Arial", 1, 40);
     Color boardColor = Color.black;
 
     public void loadBoxObjects(BoxObject[] boxObjects) {
