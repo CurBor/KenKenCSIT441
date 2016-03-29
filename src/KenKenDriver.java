@@ -51,6 +51,7 @@ public class KenKenDriver extends JFrame{
         JMenuItem fullArcCon = new JMenuItem("run full arch consistency");
         JMenuItem genCon = new JMenuItem("run full general consistency");
         JMenuItem searchCon = new JMenuItem("run search");
+        JMenuItem forwardCheckingCon = new JMenuItem("forward checking");
 
         loadGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,6 +113,17 @@ public class KenKenDriver extends JFrame{
             }
         });
 
+        forwardCheckingCon.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent evt){
+                boolean check=puzzle.forwardChecking();
+                if(check)
+                    JOptionPane.showMessageDialog(null,"You are on the right track!", "Forward Checking",1);
+                else
+                    JOptionPane.showMessageDialog(null,"You are on the wrong track!", "Forward Checking",0);
+
+            }
+        });
+
         mBar.add(menu);
         menu.add(loadGame);
         menu.add(nodeCon);
@@ -119,6 +131,7 @@ public class KenKenDriver extends JFrame{
         menu.add(fullArcCon);
         menu.add(genCon);
         menu.add(searchCon);
+        menu.add(forwardCheckingCon);
 
         this.setJMenuBar(mBar);
 
@@ -129,12 +142,14 @@ public class KenKenDriver extends JFrame{
             genCon.setEnabled(false);
             fullArcCon.setEnabled(false);
             searchCon.setEnabled(false);
+            forwardCheckingCon.setEnabled(false);
         }else{
             nodeCon.setEnabled(true);
             arcCon.setEnabled(true);
             genCon.setEnabled(true);
             fullArcCon.setEnabled(true);
             searchCon.setEnabled(true);
+            forwardCheckingCon.setEnabled(true);
         }
 
     }

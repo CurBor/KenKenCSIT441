@@ -1165,6 +1165,68 @@ public class KenKenPuzzle {
         }
     }
 
+    public boolean forwardChecking()
+    {
+        searchAssignmentsStore = new int[size][size];
+        int[][] testAssignments = new int[size][size];
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
+                testAssignments[row][col] = assignments[row][col];
+            }
+        }
+        List<Integer> testDomain[][];
+        testDomain = new List[size][size];
+
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                testDomain[x][y] = new ArrayList();
+                if(assignments[x][y]>0)
+                {
+                    testDomain[x][y].add(assignments[x][y]);
+                }else{
+                    for (int z = 1; z <= size; z++)
+                        testDomain[x][y].add(z);
+                }
+
+            }
+        }
+
+
+        forwardCheckSearch (testAssignments, 0,testDomain);
+        boolean forwardCheck=true;
+        for (int countx = 0; countx < size; countx++) {
+            for (int county = 0; county < size; county++) {
+                if(searchAssignmentsStore[countx][county]<=0)
+                {
+                    forwardCheck=false;
+                }
+            }
+        }
+        return forwardCheck;
+
+    }
+    public void forwardCheckSearch(int testAssainment[][], int cubeLocate, List<Integer> domain[][]) {
+        if (cubeLocate == size * size) {
+            if (checkDomainPossibly(testAssainment)) {
+                for (int row = 0; row < size; row++) {
+                    for (int col = 0; col < size; col++) {
+                        searchAssignmentsStore[row][col] = testAssainment[row][col];
+                    }
+                }
+            }
+            return;
+        }
+
+        for (int x = 0; x < domain[cubeLocate / size][cubeLocate % size].size(); x++) {
+            testAssainment[cubeLocate / size][cubeLocate % size] = domain[cubeLocate / size][cubeLocate % size].get(x);
+            if (checkDomainPossibly(testAssainment)) {
+                search(testAssainment, cubeLocate + 1);
+                testAssainment[cubeLocate / size][cubeLocate % size] = 0;
+            } else {
+                testAssainment[cubeLocate / size][cubeLocate % size] = 0;
+            }
+        }
+    }
 
     public int getAssignment(int r, int c) {
         return assignments[r][c];
