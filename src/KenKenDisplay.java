@@ -17,8 +17,8 @@ public class KenKenDisplay extends JPanel {
     int cellSize = 75;
     int divWid = 7;
     int thinkWid = 3;
-    int start_X = 50;
-    int start_y = 50;
+    int start_X = 30;
+    int start_y = 30;
     int letterOffSet_Y = 20;
     int letterOffSet_X = 10;
     int letterOffSetAnswer_Y = 70;

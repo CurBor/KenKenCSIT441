@@ -99,7 +99,8 @@ public class KenKenDriver extends JFrame{
                         "You are able to view the domains inside of each box after any of the consistency types have been ran\n" +
                         "When using search for larger problems it is suggested that you run general consistency first\n" +
                         "as the 9x9 problems will take a long time without it.\n" +
-                        "This game also supports user solver and will let you know when you have won","Help Menu",1);
+                        "This game also supports user solver and will let you know when you have won\n" +
+                        "Forward checking will check the user input to let you know if you are on the right track.","Help Menu",1);
             }
         });
 
