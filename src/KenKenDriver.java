@@ -45,6 +45,8 @@ public class KenKenDriver extends JFrame{
     {
         JMenuBar mBar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
+        JMenu help = new JMenu("Help");
+        JMenu aISearch = new JMenu("AI Search");
         JMenuItem description = new JMenuItem("About Game");
         JMenuItem helpMenu = new JMenuItem("Help");
         JMenuItem loadGame = new JMenuItem("load");
@@ -54,6 +56,7 @@ public class KenKenDriver extends JFrame{
         JMenuItem genCon = new JMenuItem("run full general consistency");
         JMenuItem searchCon = new JMenuItem("run search");
         JMenuItem forwardCheckingCon = new JMenuItem("forward checking");
+        JMenuItem exit = new JMenuItem("Exit");
 
         loadGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,17 +160,26 @@ public class KenKenDriver extends JFrame{
 
             }
         });
+        exit.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent evt){
 
+                JOptionPane.showMessageDialog(null,"Program Close", "Program Close",1);
+                System.exit(0);
+            }
+        });
         mBar.add(menu);
-        menu.add(description);
-        menu.add(helpMenu);
+        mBar.add(aISearch);
+        mBar.add(help);
+        help.add(description);
+        help.add(helpMenu);
         menu.add(loadGame);
-        menu.add(nodeCon);
-        menu.add(arcCon);
-        menu.add(fullArcCon);
-        menu.add(genCon);
-        menu.add(searchCon);
-        menu.add(forwardCheckingCon);
+        menu.add(exit);
+        aISearch.add(nodeCon);
+        aISearch.add(arcCon);
+        aISearch.add(fullArcCon);
+        aISearch.add(genCon);
+        aISearch.add(searchCon);
+        aISearch.add(forwardCheckingCon);
 
         this.setJMenuBar(mBar);
 
