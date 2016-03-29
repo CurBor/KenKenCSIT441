@@ -45,6 +45,8 @@ public class KenKenDriver extends JFrame{
     {
         JMenuBar mBar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
+        JMenuItem description = new JMenuItem("About Game");
+        JMenuItem helpMenu = new JMenuItem("Help");
         JMenuItem loadGame = new JMenuItem("load");
         JMenuItem nodeCon = new JMenuItem("run node consistency");
         JMenuItem arcCon = new JMenuItem("run arch consistency");
@@ -63,6 +65,38 @@ public class KenKenDriver extends JFrame{
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        description.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent evt){
+                JOptionPane.showMessageDialog(null,"As in sudoku, the goal of each puzzle is to fill a grid with digits\n" +
+                        " –– 1 through 4 for a 4×4 grid, 1 through 5 for a 5×5, etc. –– \n" +
+                        "so that no digit appears more than once in any row or any column (a Latin square). \n" +
+                        "Grids range in size from 3×3 to 9×9. Additionally, KenKen grids are divided into heavily outlined groups of cells \n" +
+                        "–– often called “cages” –– and the numbers in the cells of each cage must produce a certain “target” number when \n" +
+                        "combined using a specified mathematical operation (either addition, subtraction, multiplication or division). \n" +
+                        "For example, a linear three-cell cage specifying addition and a target number of 6 in a 4×4 puzzle must be \n" +
+                        "satisfied with the digits 1, 2, and 3. Digits may be repeated within a cage, as long as they are not in the same row or column. \n" +
+                        "No operation is relevant for a single-cell cage: placing the \"target\" in the cell is the only possibility (thus being a \"free space\").\n" +
+                        " The target number and operation appear in the upper left-hand corner of the cage.\n" +
+                        "This information was gathered from https://en.wikipedia.org/wiki/KenKen","About KenKen",1);
+            }
+        });
+
+        helpMenu.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent evt){
+                JOptionPane.showMessageDialog(null,"Welcome! This is a KenKen game designed by Zach Widger and Wei Zhou.\n" +
+                        "To get started, load a problem from file.\n" +
+                        "You are able to run node, arch, full arch, and general consistencies.\n" +
+                        "It is suggested that you use node consistency before either arch consistencies, but this is not required.\n" +
+                        "Full arch consistency will run arch consistency until no change is found\n" +
+                        "General consistency will check all constraints including those above binary.\n" +
+                        "General consistnecy will also run until no change is found in the domains of each box.\n" +
+                        "You are able to view the domains inside of each box after any of the consistency types have been ran\n" +
+                        "When using search for larger problems it is suggested that you run general consistency first\n" +
+                        "as the 9x9 problems will take a long time without it.\n" +
+                        "This game also supports user solver and will let you know when you have won","Help Menu",1);
             }
         });
 
@@ -109,7 +143,7 @@ public class KenKenDriver extends JFrame{
             public void actionPerformed(java.awt.event.ActionEvent evt){
                 puzzle.initSearch();
                 display.win();
-                JOptionPane.showMessageDialog(null,"The AI has finish the game!", "Search result!!",1);
+                JOptionPane.showMessageDialog(null, "The AI has finish the game!", "Search result!!", 1);
             }
         });
 
@@ -125,6 +159,8 @@ public class KenKenDriver extends JFrame{
         });
 
         mBar.add(menu);
+        menu.add(description);
+        menu.add(helpMenu);
         menu.add(loadGame);
         menu.add(nodeCon);
         menu.add(arcCon);
